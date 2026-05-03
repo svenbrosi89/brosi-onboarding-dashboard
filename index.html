@@ -13,13 +13,15 @@
     .wrapper { width: 100%; max-width: 600px; }
 
     /* Header */
-    .header { text-align: center; margin-bottom: 32px; }
-    .logo-img { height: 80px; width: auto; display: block; margin: 0 auto; }
-    .subtitle { font-size: 10px; color: #7a6555; letter-spacing: 0.3em; text-transform: uppercase; margin-top: 8px; }
+    .header { text-align: center; margin-bottom: 36px; }
+    .logo-img { height: 90px; width: auto; display: block; margin: 0 auto; mix-blend-mode: multiply; }
+    .header-brand { font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 600; color: #8b5e3c; letter-spacing: 0.35em; text-transform: uppercase; margin-top: 6px; }
+    .header-divider { width: 32px; height: 1px; background: rgba(139,94,60,0.3); margin: 10px auto; }
+    .subtitle { font-size: 10px; color: #7a6555; letter-spacing: 0.3em; text-transform: uppercase; }
 
     /* Progress */
     .progress { display: flex; justify-content: center; align-items: center; margin-bottom: 32px; }
-    .step-item { display: flenex; align-items: center; }
+    .step-item { display: flex; align-items: center; }
     .step-col { display: flex; flex-direction: column; align-items: center; gap: 6px; }
     .step-circle { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600; background: #e8e0d5; color: #7a6555; transition: all 0.3s ease; }
     .step-circle.active { background: #3d2b1f; color: #faf8f5; }
@@ -126,6 +128,8 @@
   <!-- Header -->
   <div class="header">
     <img src="assets/brosi-logo.jpg" alt="Brosi Interiors" class="logo-img">
+    <div class="header-brand">Interiors</div>
+    <div class="header-divider"></div>
     <div class="subtitle">Dealer Aanvraag</div>
   </div>
 
