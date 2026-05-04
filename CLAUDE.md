@@ -39,6 +39,6 @@ Eindproduct ondersteunt: NL / EN / DE
 - Deploy: `git push origin main` — Vercel deployt automatisch via `https://brosi-dealer-onboarding.vercel.app`
 
 ## Contact
-- dealers@brosi-interiors.com
+- info@brosi-interiors.com
 - Tel: +31 (0)541 229 899
 
