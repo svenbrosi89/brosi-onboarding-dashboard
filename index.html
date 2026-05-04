@@ -89,6 +89,7 @@
 
     .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
     .row-postal { display: grid; grid-template-columns: 1fr 2fr; gap: 16px; }
+    .field-block-gap { margin-top: 32px; }
 
     /* Pill buttons */
     .pills { display: flex; flex-wrap: wrap; gap: 8px; }
@@ -208,23 +209,22 @@
           <h2 data-i18n="s1_title">Bedrijfsgegevens</h2>
           <p class="desc" data-i18n="s1_desc">Vertel ons over uw onderneming</p>
 
+          <div class="field">
+            <label data-i18n="s1_country">Land</label>
+            <select id="country" onchange="countryChanged()" autocomplete="country"></select>
+          </div>
+
           <div class="field" id="f-companyName">
             <label data-i18n="s1_companyName">Bedrijfsnaam *</label>
             <input id="companyName" data-i18n-ph="s1_companyName_ph" placeholder="Bijv. Interiors De Vries B.V." autocomplete="organization" aria-required="true">
           </div>
 
-          <div class="row2">
-            <div class="field" id="f-kvkNumber">
-              <label data-i18n="s1_kvk">KvK-nummer *</label>
-              <input id="kvkNumber" data-i18n-ph="s1_kvk_ph" placeholder="12345678" autocomplete="off" aria-required="true">
-            </div>
-            <div class="field">
-              <label data-i18n="s1_vat">BTW-nummer</label>
-              <input id="vatNumber" data-i18n-ph="s1_vat_ph" placeholder="NL123456789B01">
-            </div>
+          <div class="field" id="f-kvkNumber">
+            <label data-i18n="s1_kvk">KvK-nummer *</label>
+            <input id="kvkNumber" data-i18n-ph="s1_kvk_ph" placeholder="12345678" autocomplete="off" aria-required="true">
           </div>
 
-          <div class="field" id="f-street">
+          <div class="field field-block-gap" id="f-street">
             <label data-i18n="s1_street">Straat + huisnummer *</label>
             <input id="street" data-i18n-ph="s1_street_ph" placeholder="Hoofdstraat 12" autocomplete="street-address" aria-required="true">
           </div>
@@ -241,8 +241,8 @@
           </div>
 
           <div class="field">
-            <label data-i18n="s1_country">Land</label>
-            <select id="country" onchange="countryChanged()"></select>
+            <label data-i18n="s1_vat">BTW-nummer</label>
+            <input id="vatNumber" data-i18n-ph="s1_vat_ph" placeholder="NL123456789B01">
           </div>
         </div>
       </div>
@@ -947,7 +947,7 @@
     // Auto-focus first input of the new step
     if (currentStep < 5) {
       setTimeout(function() {
-        var first = document.querySelector('#panel' + currentStep + ' input:not([type="checkbox"]), #panel' + currentStep + ' select');
+        var first = document.querySelector('#panel' + currentStep + ' input:not([type="checkbox"])') || document.querySelector('#panel' + currentStep + ' select');
         if (first) first.focus({ preventScroll: true });
       }, 60);
     }
