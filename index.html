@@ -97,6 +97,8 @@
     .pills { display: flex; flex-wrap: wrap; gap: 8px; }
     .pill { padding: 8px 18px; border-radius: 6px; border: 1.5px solid var(--border); background: var(--white); color: var(--text); font-size: 11px; font-family: 'Jost', sans-serif; cursor: pointer; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; transition: all 0.2s; }
     .pill.selected { border: 2px solid var(--gold); background: var(--brown); color: var(--white); font-weight: 600; }
+    .pill:hover:not(.selected) { border-color: var(--gold); color: var(--text); }
+    .summary-type-badge { display: inline-block; padding: 2px 10px; border: 1px solid var(--border); border-radius: 4px; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--brown); background: var(--gold-soft); }
 
     /* Verification box */
     .verify-box { background: var(--sand-light); border-radius: 4px; padding: 20px; margin-bottom: 24px; border: 1px solid var(--border); }
@@ -1159,10 +1161,11 @@
 
     var shopLabel = selectedShopTypeIndex >= 0 ? t[currentLang].shopTypes[selectedShopTypeIndex] : '—';
     var countryName = getCountryName(country);
+    var shopBadge = shopLabel !== '—' ? '<span class="summary-type-badge">' + shopLabel + '</span>' : '—';
     document.getElementById('summaryGrid').innerHTML =
       '<div><strong>' + tr.sum_company + ':</strong> ' + val('companyName') + '</div>' +
       '<div><strong>' + tr.sum_contact + ':</strong> ' + val('contactName') + '</div>' +
-      '<div><strong>' + tr.sum_type + ':</strong> ' + shopLabel + '</div>' +
+      '<div><strong>' + tr.sum_type + ':</strong> ' + shopBadge + '</div>' +
       '<div><strong>' + tr.sum_location + ':</strong> ' + val('city') + ', ' + countryName + '</div>';
   }
 
