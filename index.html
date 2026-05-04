@@ -121,6 +121,9 @@
     .btn-back:hover { background: var(--sand-light); }
     .btn-next { padding: 12px 32px; border-radius: 6px; border: none; background: var(--brown); color: var(--white); font-size: 11px; font-family: 'Jost', sans-serif; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 16px var(--gold-glow); }
     .btn-next:hover { box-shadow: 0 6px 24px var(--gold-glow); transform: translateY(-1px); }
+    .btn-next:disabled { opacity: 0.4; cursor: not-allowed; transform: none; box-shadow: none; }
+    .verify-error-note { display: none; margin: -8px 0 16px; padding: 10px 14px; background: #fce4ec; border: 1px solid #f0b8c0; border-radius: 4px; font-size: 12px; color: #c62828; line-height: 1.6; }
+    .verify-error-note a { color: var(--brown); font-weight: 600; text-decoration: underline; cursor: pointer; }
 
     /* Step 5 */
     .success-icon { width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 24px; background: linear-gradient(135deg, var(--gold) 0%, var(--gold-hero) 100%); display: flex; align-items: center; justify-content: center; font-size: 36px; color: var(--white); box-shadow: 0 8px 32px var(--gold-glow); }
@@ -312,6 +315,8 @@
             </div>
           </div>
 
+          <div id="verifyErrorNote" class="verify-error-note"></div>
+
           <div class="verify-box">
             <div class="title" data-i18n="s4_summary">Samenvatting</div>
             <div class="summary-grid" id="summaryGrid"></div>
@@ -370,6 +375,8 @@
   let selectedShopTypeIndex = -1;
   let currentLang = 'nl';
   let userChangedCountry = false;
+  let kvkVerifyStatus = 'pending';
+  let vatVerifyStatus = 'pending';
 
   const langDefaultCountry = { nl: 'NL', en: 'GB', de: 'DE' };
 
@@ -514,6 +521,8 @@
       cg_eu: 'EU-landen',
       cg_world: 'Wereldwijd',
       stepMeta: function(cur, tot) { return 'Stap ' + cur + ' van ' + tot; },
+      kvkErrorNote: 'KvK-nummer niet herkend. Controleer het nummer en <a onclick="goToStep(1)">ga terug naar stap 1</a>.',
+      vatErrorNote: 'BTW-nummer heeft een ongeldig formaat. Corrigeer het of verwijder het en <a onclick="goToStep(1)">ga terug naar stap 1</a>.',
     },
     en: {
       pageTitle: 'Brosi Interiors — Dealer Application',
@@ -588,6 +597,8 @@
       cg_eu: 'EU Countries',
       cg_world: 'Worldwide',
       stepMeta: function(cur, tot) { return 'Step ' + cur + ' of ' + tot; },
+      kvkErrorNote: 'Registration number not recognised. Check the number and <a onclick="goToStep(1)">go back to step 1</a>.',
+      vatErrorNote: 'VAT number format is invalid. Correct it or remove it and <a onclick="goToStep(1)">go back to step 1</a>.',
     },
     de: {
       pageTitle: 'Brosi Interiors — Händleranfrage',
@@ -662,6 +673,8 @@
       cg_eu: 'EU-Länder',
       cg_world: 'Weltweit',
       stepMeta: function(cur, tot) { return 'Schritt ' + cur + ' von ' + tot; },
+      kvkErrorNote: 'Registrierungsnummer nicht gefunden. Prüfen Sie die Nummer und <a onclick="goToStep(1)">gehen Sie zu Schritt 1 zurück</a>.',
+      vatErrorNote: 'USt-IdNr. hat ein ungültiges Format. Korrigieren oder löschen Sie sie und <a onclick="goToStep(1)">gehen Sie zu Schritt 1 zurück</a>.',
     }
   };
 
@@ -959,6 +972,31 @@
     updateView();
   }
 
+  function goToStep(n) {
+    currentStep = n;
+    var activePanel = document.querySelector('.step-panel.active .step-content');
+    if (activePanel) { activePanel.style.animation = 'none'; activePanel.offsetHeight; activePanel.style.animation = 'slideInLeft 0.28s ease'; }
+    updateView();
+  }
+
+  function updateSubmitState() {
+    if (currentStep !== 4) return;
+    var btn = document.getElementById('btnNext');
+    var note = document.getElementById('verifyErrorNote');
+    var tr = t[currentLang];
+    var kvkBlocking = kvkVerifyStatus === 'invalid';
+    var vatBlocking = vatVerifyStatus === 'invalid';
+    if (btn) btn.disabled = kvkBlocking || vatBlocking;
+    if (note) {
+      if (kvkBlocking || vatBlocking) {
+        note.innerHTML = kvkBlocking ? tr.kvkErrorNote : tr.vatErrorNote;
+        note.style.display = '';
+      } else {
+        note.style.display = 'none';
+      }
+    }
+  }
+
   function goBack() {
     currentStep = Math.max(currentStep - 1, 1);
     var activePanel = document.querySelector('.step-panel.active .step-content');
@@ -1033,6 +1071,14 @@
     var kvkBadge = document.getElementById('kvkBadge');
     var vatBadge = document.getElementById('vatBadge');
 
+    // Reset state for this verification run
+    kvkVerifyStatus = 'loading';
+    vatVerifyStatus = 'loading';
+    var btn = document.getElementById('btnNext');
+    var note = document.getElementById('verifyErrorNote');
+    if (btn) btn.disabled = false;
+    if (note) note.style.display = 'none';
+
     // Option A — registration number format check
     kvkBadge.className = 'badge loading';
     kvkBadge.textContent = tr.checking;
@@ -1040,12 +1086,15 @@
       var regOk = regCfg && regCfg.regex ? regCfg.regex.test(kvkVal) : kvkVal.length >= 6;
       kvkBadge.className = 'badge ' + (regOk ? 'valid' : 'invalid');
       kvkBadge.textContent = regOk ? tr.kvkValid : tr.kvkInvalid;
+      kvkVerifyStatus = regOk ? 'valid' : 'invalid';
+      updateSubmitState();
     }, 900);
 
     // Option A + B — VAT format then VIES
     if (!vatVal) {
       vatBadge.className = 'badge pending';
       vatBadge.textContent = tr.vatPending;
+      vatVerifyStatus = 'manual';
     } else {
       vatBadge.className = 'badge loading';
       vatBadge.textContent = tr.checking;
@@ -1055,6 +1104,8 @@
         setTimeout(function() {
           vatBadge.className = 'badge invalid';
           vatBadge.textContent = tr.vatFormatInvalid;
+          vatVerifyStatus = 'invalid';
+          updateSubmitState();
         }, 900);
       } else if (cfg.isEU) {
         setTimeout(async function() {
@@ -1064,18 +1115,24 @@
           if (result.manual || result.apiError) {
             vatBadge.className = 'badge pending';
             vatBadge.textContent = tr.vatPending;
+            vatVerifyStatus = 'manual';
           } else if (result.valid) {
             vatBadge.className = 'badge valid';
             vatBadge.textContent = tr.vatValid;
+            vatVerifyStatus = 'valid';
           } else {
             vatBadge.className = 'badge invalid';
             vatBadge.textContent = tr.kvkInvalid;
+            vatVerifyStatus = 'invalid';
           }
+          updateSubmitState();
         }, 900);
       } else {
         setTimeout(function() {
           vatBadge.className = 'badge pending';
           vatBadge.textContent = tr.vatPending;
+          vatVerifyStatus = 'manual';
+          updateSubmitState();
         }, 900);
       }
     }
