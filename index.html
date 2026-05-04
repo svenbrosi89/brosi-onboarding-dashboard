@@ -520,12 +520,13 @@
       invalidEmail: 'Ongeldig e-mailadres',
       selectType: 'Selecteer een type',
       checking: '... Controleren...',
-      viesChecking: '... VIES verificatie...',
+      viesChecking: '... BTW-nummer controleren...',
       kvkValid: '✓ Geverifieerd',
-      kvkInvalid: '✗ Niet gevonden',
-      vatValid: '✓ VIES geldig',
-      vatFormatInvalid: '✗ Ongeldig formaat',
-      vatPending: '⏳ Handmatig',
+      kvkInvalid: '✗ Nummer niet herkend',
+      vatValid: '✓ BTW-nummer geldig',
+      vatFormatInvalid: '✗ Controleer het formaat',
+      vatPending: '⏳ Wordt nagekeken',
+      vatNotProvided: '— Niet opgegeven',
       sum_company: 'Bedrijf',
       sum_contact: 'Contact',
       sum_type: 'Type',
@@ -597,12 +598,13 @@
       invalidEmail: 'Invalid email address',
       selectType: 'Select a type',
       checking: '... Checking...',
-      viesChecking: '... VIES checking...',
+      viesChecking: '... Verifying VAT number...',
       kvkValid: '✓ Verified',
-      kvkInvalid: '✗ Not found',
-      vatValid: '✓ VIES valid',
-      vatFormatInvalid: '✗ Invalid format',
-      vatPending: '⏳ Manual check',
+      kvkInvalid: '✗ Number not recognised',
+      vatValid: '✓ VAT number verified',
+      vatFormatInvalid: '✗ Check the format',
+      vatPending: '⏳ Under review',
+      vatNotProvided: '— Not provided',
       sum_company: 'Company',
       sum_contact: 'Contact',
       sum_type: 'Type',
@@ -674,12 +676,13 @@
       invalidEmail: 'Ungültige E-Mail-Adresse',
       selectType: 'Bitte auswählen',
       checking: '... Prüfen...',
-      viesChecking: '... VIES Prüfung...',
+      viesChecking: '... USt-IdNr. wird geprüft...',
       kvkValid: '✓ Verifiziert',
-      kvkInvalid: '✗ Nicht gefunden',
-      vatValid: '✓ VIES gültig',
-      vatFormatInvalid: '✗ Ungültiges Format',
-      vatPending: '⏳ Manuell',
+      kvkInvalid: '✗ Nummer nicht erkannt',
+      vatValid: '✓ USt-IdNr. gültig',
+      vatFormatInvalid: '✗ Format prüfen',
+      vatPending: '⏳ Wird geprüft',
+      vatNotProvided: '— Nicht angegeben',
       sum_company: 'Unternehmen',
       sum_contact: 'Kontakt',
       sum_type: 'Art',
@@ -1109,8 +1112,8 @@
 
     // Option A + B — VAT format then VIES
     if (!vatVal) {
-      vatBadge.className = 'badge pending';
-      vatBadge.textContent = tr.vatPending;
+      vatBadge.className = 'badge loading';
+      vatBadge.textContent = tr.vatNotProvided;
       vatVerifyStatus = 'manual';
     } else {
       vatBadge.className = 'badge loading';
