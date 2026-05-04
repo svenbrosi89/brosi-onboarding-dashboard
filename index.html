@@ -5,6 +5,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Brosi Interiors — Dealer Aanvraag</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;1,300&family=Jost:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <style>
     :root {
@@ -102,6 +103,7 @@
     .verify-box .title { font-size: 10px; font-weight: 600; color: var(--text); margin-bottom: 14px; letter-spacing: 0.2em; text-transform: uppercase; }
     .verify-row { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; }
     .verify-row span { font-size: 14px; color: var(--text-light); }
+    .verify-row strong { color: var(--text); }
     .badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 2px; font-size: 13px; font-weight: 600; }
     .badge.loading { background: var(--sand-light); color: var(--text-light); }
     .badge.valid { background: #e8f5e9; color: #2e7d32; }
@@ -179,6 +181,16 @@
 
       /* Success */
       .expect-list { padding: 18px; }
+
+      .header-statement { font-size: 16px; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .step-content { animation: none; }
+      .field .error-msg { animation: none; }
+      .success-icon.animate { animation: none; opacity: 1; transform: none; }
+      .expect-item { transition: none; }
+      .btn-next, .btn-back, .pill, .lang-btn, .step-circle, .step-line, .step-label, .field input, .field select { transition: none; }
     }
   </style>
 </head>
@@ -188,7 +200,7 @@
   <!-- Language bar -->
   <div class="lang-bar">
     <button class="lang-btn" data-lang="nl" onclick="setLang('nl')"><img class="flag" src="https://flagcdn.com/nl.svg" alt="NL"> Nederlands</button>
-    <button class="lang-btn" data-lang="en" onclick="setLang('en')"><img class="flag" src="https://flagcdn.com/us.svg" alt="US"> English</button>
+    <button class="lang-btn" data-lang="en" onclick="setLang('en')"><img class="flag" src="https://flagcdn.com/gb.svg" alt="GB"> English</button>
     <button class="lang-btn" data-lang="de" onclick="setLang('de')"><img class="flag" src="https://flagcdn.com/de.svg" alt="DE"> Deutsch</button>
   </div>
 
@@ -958,9 +970,9 @@
       activePanel.style.animation = 'slideInRight 0.28s ease';
     }
 
-    // Scroll card into view (helpful on mobile)
+    // Scroll card into view on step transitions (not on initial load)
     var card = document.querySelector('.card');
-    if (card) card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    if (card && currentStep > 1) card.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
     // Auto-focus first input of the new step
     if (currentStep < 5) {
