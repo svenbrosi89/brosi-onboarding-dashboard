@@ -36,7 +36,7 @@ Eindproduct ondersteunt: NL / EN / DE
 ## Aanpassingen doorvoeren
 - Werk altijd in `index.html`
 - Test door het bestand te openen in de browser (geen server nodig)
-- Deploy: `git push origin main` — Vercel deployt automatisch via `https://brosi-onboarding-dashboard.vercel.app`
+- Deploy: `git push origin main` — Vercel deployt automatisch via `https://brosi-dealer-onboarding.vercel.app`
 
 ## Contact
 - dealers@brosi-interiors.com
