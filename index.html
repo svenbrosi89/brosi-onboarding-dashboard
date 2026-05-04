@@ -30,14 +30,20 @@
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
-    body { font-family: 'Jost', sans-serif; background: linear-gradient(160deg, var(--sand-light) 0%, var(--sand) 40%, var(--sand-light) 100%); min-height: 100vh; display: flex; align-items: center; justify-content: center; padding: 20px; }
+    body { font-family: 'Jost', sans-serif; background: linear-gradient(160deg, var(--sand-light) 0%, var(--sand) 40%, var(--sand-light) 100%); min-height: 100vh; display: flex; align-items: flex-start; justify-content: center; padding: 48px 20px 64px; }
 
     .wrapper { width: 100%; max-width: 600px; }
+
+    /* Language bar */
+    .lang-bar { display: flex; justify-content: center; gap: 8px; margin-bottom: 32px; }
+    .lang-btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 16px 20px; flex: 1; border-radius: 6px; border: 1.5px solid var(--border); background: transparent; color: var(--text-light); font-size: 13px; font-family: 'Jost', sans-serif; font-weight: 400; letter-spacing: 0.05em; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
+    .lang-btn .flag { width: 26px; height: auto; border-radius: 2px; flex-shrink: 0; }
+    .lang-btn.active { border-color: var(--gold); background: var(--gold-soft); color: var(--brown-dark); font-weight: 600; }
+    .lang-btn:hover:not(.active) { border-color: var(--brown); color: var(--text); background: var(--sand-light); }
 
     /* Header */
     .header { text-align: center; margin-bottom: 36px; }
     .logo-img { height: 90px; width: auto; display: block; margin: 0 auto; mix-blend-mode: multiply; }
-    .header-brand { font-family: 'Jost', sans-serif; font-size: 10px; font-weight: 600; color: var(--brown); letter-spacing: 0.35em; text-transform: uppercase; margin-top: 6px; }
     .header-divider { width: 32px; height: 1px; background: var(--border-medium); margin: 10px auto; }
     .subtitle { font-size: 10px; color: var(--text-light); letter-spacing: 0.3em; text-transform: uppercase; }
 
@@ -73,15 +79,20 @@
     .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--gold); box-shadow: 0 0 0 3px var(--gold-soft); }
     .field textarea { min-height: 70px; resize: vertical; }
     .field select { cursor: pointer; }
-    .field .error-msg { font-size: 12px; color: #c0392b; margin-top: 4px; }
+    @keyframes fadeInDown { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
+    .field .error-msg { font-size: 12px; color: #c0392b; margin-top: 4px; animation: fadeInDown 0.18s ease; }
     .field.has-error input, .field.has-error select, .field.has-error textarea { border: 2px solid #c0392b; }
+    .field input:focus-visible, .field select:focus-visible, .field textarea:focus-visible { outline: none; }
+
+    /* Step counter */
+    .step-meta { font-size: 10px; letter-spacing: 0.25em; color: var(--gold); text-transform: uppercase; margin-bottom: 6px; font-weight: 600; }
 
     .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
     .row-postal { display: grid; grid-template-columns: 1fr 2fr; gap: 16px; }
 
-    /* Pill buttons (shop type) */
+    /* Pill buttons */
     .pills { display: flex; flex-wrap: wrap; gap: 8px; }
-    .pill { padding: 8px 18px; border-radius: 2px; border: 1.5px solid var(--border); background: var(--white); color: var(--text); font-size: 11px; font-family: 'Jost', sans-serif; cursor: pointer; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; transition: all 0.2s; }
+    .pill { padding: 8px 18px; border-radius: 6px; border: 1.5px solid var(--border); background: var(--white); color: var(--text); font-size: 11px; font-family: 'Jost', sans-serif; cursor: pointer; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; transition: all 0.2s; }
     .pill.selected { border: 2px solid var(--gold); background: var(--brown); color: var(--white); font-weight: 600; }
 
     /* Verification box */
@@ -105,9 +116,9 @@
     /* Navigation */
     .nav-bar { display: flex; justify-content: flex-end; margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border-light); }
     .nav-bar.has-back { justify-content: space-between; }
-    .btn-back { padding: 12px 28px; border-radius: 2px; border: 1.5px solid var(--border-medium); background: transparent; color: var(--text); font-size: 11px; font-family: 'Jost', sans-serif; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: all 0.2s; }
+    .btn-back { padding: 12px 28px; border-radius: 6px; border: 1.5px solid var(--border-medium); background: transparent; color: var(--text); font-size: 11px; font-family: 'Jost', sans-serif; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: all 0.2s; }
     .btn-back:hover { background: var(--sand-light); }
-    .btn-next { padding: 12px 32px; border-radius: 2px; border: none; background: var(--brown); color: var(--white); font-size: 11px; font-family: 'Jost', sans-serif; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 16px var(--gold-glow); }
+    .btn-next { padding: 12px 32px; border-radius: 6px; border: none; background: var(--brown); color: var(--white); font-size: 11px; font-family: 'Jost', sans-serif; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 16px var(--gold-glow); }
     .btn-next:hover { box-shadow: 0 6px 24px var(--gold-glow); transform: translateY(-1px); }
 
     /* Step 5 */
@@ -126,33 +137,39 @@
     .footer { text-align: center; margin-top: 24px; font-size: 12px; color: var(--text-light); }
     .footer a { color: var(--gold); text-decoration: none; }
 
-    /* Dev bar */
-    .dev-bar { position: fixed; bottom: 0; left: 0; right: 0; z-index: 9999; background: var(--hero-bg); color: #e0e0e0; padding: 12px 20px; font-size: 13px; display: flex; justify-content: space-between; align-items: center; border-top: 2px solid var(--gold); }
-    .dev-bar strong { color: var(--gold); }
-    .dev-bar a { color: #7ec8e3; text-decoration: none; }
-    .dev-tag { background: var(--gold-soft); color: var(--gold); padding: 2px 8px; border-radius: 4px; font-size: 11px; font-weight: 600; }
-    .dev-close { background: none; border: none; color: #888; cursor: pointer; font-size: 18px; padding: 4px 8px; }
 
     /* Hidden steps */
     .step-panel { display: none; }
     .step-panel.active { display: block; }
 
     @media (max-width: 480px) {
+      body { padding: 24px 16px 48px; }
       .card { padding: 24px 20px; }
       .row2, .row-postal { grid-template-columns: 1fr; }
       .summary-grid { grid-template-columns: 1fr; }
+      .lang-bar { flex-wrap: wrap; gap: 6px; }
+      .lang-btn { padding: 12px 14px; font-size: 11px; min-width: 100px; }
+      .lang-btn .flag { width: 22px; }
+      .btn-next, .btn-back { padding: 14px 24px; }
+      .step-label { display: none; }
     }
   </style>
 </head>
 <body>
 
 <div class="wrapper">
+  <!-- Language bar -->
+  <div class="lang-bar">
+    <button class="lang-btn" data-lang="nl" onclick="setLang('nl')"><img class="flag" src="https://flagcdn.com/nl.svg" alt="NL"> Nederlands</button>
+    <button class="lang-btn" data-lang="en" onclick="setLang('en')"><img class="flag" src="https://flagcdn.com/us.svg" alt="US"> English</button>
+    <button class="lang-btn" data-lang="de" onclick="setLang('de')"><img class="flag" src="https://flagcdn.com/de.svg" alt="DE"> Deutsch</button>
+  </div>
+
   <!-- Header -->
   <div class="header">
     <img src="assets/brosi-logo.jpg" alt="Brosi Interiors" class="logo-img">
-    <div class="header-brand">Interiors</div>
     <div class="header-divider"></div>
-    <div class="subtitle">Dealer Aanvraag</div>
+    <div class="subtitle" data-i18n="subtitle">Dealer Aanvraag</div>
   </div>
 
   <!-- Progress -->
@@ -160,52 +177,50 @@
 
   <!-- Card -->
   <div class="card">
+    <div id="stepMeta" class="step-meta"></div>
     <div id="stepContainer">
 
       <!-- Step 1: Bedrijf -->
       <div class="step-panel active" id="panel1">
         <div class="step-content">
-          <h2>Bedrijfsgegevens</h2>
-          <p class="desc">Vertel ons over uw onderneming</p>
+          <h2 data-i18n="s1_title">Bedrijfsgegevens</h2>
+          <p class="desc" data-i18n="s1_desc">Vertel ons over uw onderneming</p>
 
           <div class="field" id="f-companyName">
-            <label>Bedrijfsnaam *</label>
-            <input id="companyName" placeholder="Bijv. Interiors De Vries B.V.">
+            <label data-i18n="s1_companyName">Bedrijfsnaam *</label>
+            <input id="companyName" data-i18n-ph="s1_companyName_ph" placeholder="Bijv. Interiors De Vries B.V." autocomplete="organization" aria-required="true">
           </div>
 
           <div class="row2">
             <div class="field" id="f-kvkNumber">
-              <label>KvK-nummer *</label>
-              <input id="kvkNumber" placeholder="12345678">
+              <label data-i18n="s1_kvk">KvK-nummer *</label>
+              <input id="kvkNumber" data-i18n-ph="s1_kvk_ph" placeholder="12345678" autocomplete="off" aria-required="true">
             </div>
             <div class="field">
-              <label>BTW-nummer</label>
-              <input id="vatNumber" placeholder="NL123456789B01">
+              <label data-i18n="s1_vat">BTW-nummer</label>
+              <input id="vatNumber" data-i18n-ph="s1_vat_ph" placeholder="NL123456789B01">
             </div>
           </div>
 
           <div class="field" id="f-street">
-            <label>Straat + huisnummer *</label>
-            <input id="street" placeholder="Hoofdstraat 12">
+            <label data-i18n="s1_street">Straat + huisnummer *</label>
+            <input id="street" data-i18n-ph="s1_street_ph" placeholder="Hoofdstraat 12" autocomplete="street-address" aria-required="true">
           </div>
 
           <div class="row-postal">
             <div class="field" id="f-postalCode">
-              <label>Postcode *</label>
-              <input id="postalCode" placeholder="1234 AB">
+              <label data-i18n="s1_postal">Postcode *</label>
+              <input id="postalCode" data-i18n-ph="s1_postal_ph" placeholder="1234 AB" autocomplete="postal-code" aria-required="true">
             </div>
             <div class="field" id="f-city">
-              <label>Plaats *</label>
-              <input id="city" placeholder="Amsterdam">
+              <label data-i18n="s1_city">Plaats *</label>
+              <input id="city" data-i18n-ph="s1_city_ph" placeholder="Amsterdam" autocomplete="address-level2" aria-required="true">
             </div>
           </div>
 
           <div class="field">
-            <label>Land</label>
-            <select id="country">
-              <option>Nederland</option><option>België</option><option>Duitsland</option>
-              <option>Oostenrijk</option><option>Frankrijk</option><option>Overig</option>
-            </select>
+            <label data-i18n="s1_country">Land</label>
+            <select id="country" onchange="countryChanged()"></select>
           </div>
         </div>
       </div>
@@ -213,27 +228,27 @@
       <!-- Step 2: Contact -->
       <div class="step-panel" id="panel2">
         <div class="step-content">
-          <h2>Contactpersoon</h2>
-          <p class="desc">Wie is het eerste aanspreekpunt?</p>
+          <h2 data-i18n="s2_title">Contactpersoon</h2>
+          <p class="desc" data-i18n="s2_desc">Wie is het eerste aanspreekpunt?</p>
 
           <div class="field" id="f-contactName">
-            <label>Volledige naam *</label>
-            <input id="contactName" placeholder="Jan de Vries">
+            <label data-i18n="s2_name">Volledige naam *</label>
+            <input id="contactName" data-i18n-ph="s2_name_ph" placeholder="Jan de Vries" autocomplete="name" aria-required="true">
           </div>
 
           <div class="field" id="f-contactEmail">
-            <label>E-mailadres *</label>
-            <input id="contactEmail" type="email" placeholder="jan@interiorsdevries.nl">
+            <label data-i18n="s2_email">E-mailadres *</label>
+            <input id="contactEmail" type="email" data-i18n-ph="s2_email_ph" placeholder="jan@interiorsdevries.nl" autocomplete="email" aria-required="true">
           </div>
 
           <div class="row2">
             <div class="field" id="f-contactPhone">
-              <label>Telefoonnummer *</label>
-              <input id="contactPhone" placeholder="+31 6 12345678">
+              <label data-i18n="s2_phone">Telefoonnummer *</label>
+              <input id="contactPhone" data-i18n-ph="s2_phone_ph" placeholder="+31 6 12345678" autocomplete="tel" aria-required="true">
             </div>
             <div class="field">
-              <label>Functie</label>
-              <input id="contactRole" placeholder="Eigenaar / Inkoper">
+              <label data-i18n="s2_role">Functie</label>
+              <input id="contactRole" data-i18n-ph="s2_role_ph" placeholder="Eigenaar / Inkoper" autocomplete="organization-title">
             </div>
           </div>
         </div>
@@ -242,40 +257,17 @@
       <!-- Step 3: Winkel -->
       <div class="step-panel" id="panel3">
         <div class="step-content">
-          <h2>Winkelinformatie</h2>
-          <p class="desc">Help ons uw bedrijf beter te begrijpen</p>
+          <h2 data-i18n="s3_title">Winkelinformatie</h2>
+          <p class="desc" data-i18n="s3_desc">Help ons uw bedrijf beter te begrijpen</p>
 
           <div class="field" id="f-shopType">
-            <label>Type zaak *</label>
+            <label data-i18n="s3_type">Type zaak *</label>
             <div class="pills" id="shopTypePills"></div>
           </div>
 
-          <div class="row2">
-            <div class="field">
-              <label>Aantal vestigingen</label>
-              <input id="locations" type="number" min="1" value="1">
-            </div>
-            <div class="field" id="f-estimatedVolume">
-              <label>Geschat jaarlijks inkoopvolume *</label>
-              <select id="estimatedVolume">
-                <option value="">Selecteer...</option>
-                <option>< €10.000</option>
-                <option>€10.000 – €25.000</option>
-                <option>€25.000 – €50.000</option>
-                <option>€50.000 – €100.000</option>
-                <option>> €100.000</option>
-              </select>
-            </div>
-          </div>
-
           <div class="field">
-            <label>Huidige merken in assortiment</label>
-            <textarea id="currentBrands" placeholder="Bijv. Richmond Interiors, Rivièra Maison, Light & Living..."></textarea>
-          </div>
-
-          <div class="field">
-            <label>Website URL</label>
-            <input id="websiteUrl" placeholder="https://www.uwwebsite.nl">
+            <label data-i18n="s3_website">Website URL</label>
+            <input id="websiteUrl" data-i18n-ph="s3_website_ph" placeholder="https://www.uwwebsite.nl" autocomplete="url" type="url">
           </div>
         </div>
       </div>
@@ -283,36 +275,36 @@
       <!-- Step 4: Verificatie -->
       <div class="step-panel" id="panel4">
         <div class="step-content">
-          <h2>Verificatie &amp; Voorwaarden</h2>
-          <p class="desc">Laatste stap voor inzending</p>
+          <h2 data-i18n="s4_title">Verificatie &amp; Voorwaarden</h2>
+          <p class="desc" data-i18n="s4_desc">Laatste stap voor inzending</p>
 
           <div class="verify-box">
-            <div class="title">Automatische verificatie</div>
+            <div class="title" data-i18n="s4_autoVerify">Automatische verificatie</div>
             <div class="verify-row">
-              <span>KvK-nummer: <strong id="showKvk">—</strong></span>
-              <span class="badge loading" id="kvkBadge">... Controleren...</span>
+              <span><span data-i18n="s4_kvkLabel">KvK-nummer:</span> <strong id="showKvk">—</strong></span>
+              <span class="badge loading" id="kvkBadge">...</span>
             </div>
             <div class="verify-row" style="margin-top:10px">
-              <span>BTW-nummer: <strong id="showVat">—</strong></span>
-              <span class="badge loading" id="vatBadge">... Controleren...</span>
+              <span><span data-i18n="s4_vatLabel">BTW-nummer:</span> <strong id="showVat">—</strong></span>
+              <span class="badge loading" id="vatBadge">...</span>
             </div>
           </div>
 
           <div class="verify-box">
-            <div class="title">Samenvatting</div>
+            <div class="title" data-i18n="s4_summary">Samenvatting</div>
             <div class="summary-grid" id="summaryGrid"></div>
           </div>
 
           <div id="f-agreeTerms">
             <label class="checkbox-row">
               <input type="checkbox" id="agreeTerms">
-              <span>Ik ga akkoord met de <a href="#">algemene dealervoorwaarden</a> van Brosi Interiors *</span>
+              <span data-i18n-html="s4_terms">Ik ga akkoord met de <a href="#">algemene dealervoorwaarden</a> van Brosi Interiors *</span>
             </label>
           </div>
           <div id="f-agreePrivacy">
             <label class="checkbox-row">
               <input type="checkbox" id="agreePrivacy">
-              <span>Ik ga akkoord met het <a href="#">privacybeleid</a> *</span>
+              <span data-i18n-html="s4_privacy">Ik ga akkoord met het <a href="#">privacybeleid</a> *</span>
             </label>
           </div>
         </div>
@@ -322,14 +314,14 @@
       <div class="step-panel" id="panel5">
         <div class="step-content success" style="text-align:center">
           <div class="success-icon" id="successIcon">✓</div>
-          <h2>Aanvraag ontvangen!</h2>
+          <h2 data-i18n="s5_title">Aanvraag ontvangen!</h2>
           <p id="successMsg"></p>
           <div class="expect-list">
-            <div class="title">Wat kunt u verwachten?</div>
-            <div class="expect-item" data-delay="300"><span class="icon">📧</span> Bevestigingsmail binnen enkele minuten</div>
-            <div class="expect-item" data-delay="400"><span class="icon">🔍</span> Beoordeling door ons salesteam</div>
-            <div class="expect-item" data-delay="500"><span class="icon">📞</span> Persoonlijk contact binnen 2 werkdagen</div>
-            <div class="expect-item" data-delay="600"><span class="icon">🔑</span> Uw dealeraccount &amp; inloggegevens</div>
+            <div class="title" data-i18n="s5_expectTitle">Wat kunt u verwachten?</div>
+            <div class="expect-item" data-delay="300"><span class="icon">📧</span> <span data-i18n="s5_expect1">Bevestigingsmail binnen enkele minuten</span></div>
+            <div class="expect-item" data-delay="400"><span class="icon">🔍</span> <span data-i18n="s5_expect2">Beoordeling door ons salesteam</span></div>
+            <div class="expect-item" data-delay="500"><span class="icon">📞</span> <span data-i18n="s5_expect3">Persoonlijk contact binnen 2 werkdagen</span></div>
+            <div class="expect-item" data-delay="600"><span class="icon">🔑</span> <span data-i18n="s5_expect4">Uw dealeraccount &amp; inloggegevens</span></div>
           </div>
         </div>
       </div>
@@ -344,48 +336,505 @@
 
   <!-- Footer -->
   <div class="footer">
-    Vragen? Neem contact op via <a href="mailto:dealers@brosi-interiors.com">dealers@brosi-interiors.com</a>
-    of bel <a href="tel:+31541229899">+31 (0)541 229 899</a>
+    <span data-i18n="footer">Vragen? Neem contact op via</span> <a href="mailto:dealers@brosi-interiors.com">dealers@brosi-interiors.com</a>
+    <span data-i18n="footer_or"> of bel</span> <a href="tel:+31541229899">+31 (0)541 229 899</a>
   </div>
 </div>
 
-<!-- Dev bar -->
-<div class="dev-bar" id="devBar">
-  <div>
-    <strong>Brosi Interiors</strong> — Dealer Onboarding Tool &nbsp;
-    <span class="dev-tag">PREVIEW</span> &nbsp;
-    <span class="dev-tag">VANILLA JS</span> &nbsp;
-    Doel: <strong>dealers.brosi-interiors.com</strong> · Stack: Vercel (Next.js) ·
-    <a href="mailto:dealers@brosi-interiors.com">dealers@brosi-interiors.com</a>
-  </div>
-  <button class="dev-close" onclick="document.getElementById('devBar').style.display='none'">&times;</button>
-</div>
 
 <script>
   // ── STATE ──
   let currentStep = 1;
-  let selectedShopType = '';
-  const steps = [
-    { id: 1, label: 'Bedrijf' },
-    { id: 2, label: 'Contact' },
-    { id: 3, label: 'Winkel' },
-    { id: 4, label: 'Verificatie' },
-    { id: 5, label: 'Bevestiging' },
-  ];
+  let selectedShopTypeIndex = -1;
+  let currentLang = 'nl';
 
-  const shopTypes = ['Meubelzaak','Interieurstudio','Woonwinkel','E-commerce','Projectinrichter','Hotelinrichter','Overig'];
+  // ── COUNTRY VALIDATION CONFIG (VAT regex + VIES member-state code) ──
+  const countryConfig = {
+    NL: { vatRegex: /^NL\d{9}B\d{2}$/i,              isEU: true,  viesMs: 'NL' },
+    BE: { vatRegex: /^BE(0|1)\d{9}$/i,                isEU: true,  viesMs: 'BE' },
+    DE: { vatRegex: /^DE\d{9}$/i,                     isEU: true,  viesMs: 'DE' },
+    FR: { vatRegex: /^FR[A-Z0-9]{2}\d{9}$/i,          isEU: true,  viesMs: 'FR' },
+    AT: { vatRegex: /^ATU\d{8}$/i,                    isEU: true,  viesMs: 'AT' },
+    BG: { vatRegex: /^BG\d{9,10}$/i,                  isEU: true,  viesMs: 'BG' },
+    HR: { vatRegex: /^HR\d{11}$/i,                    isEU: true,  viesMs: 'HR' },
+    CY: { vatRegex: /^CY\d{8}[A-Z]$/i,               isEU: true,  viesMs: 'CY' },
+    CZ: { vatRegex: /^CZ\d{8,10}$/i,                  isEU: true,  viesMs: 'CZ' },
+    DK: { vatRegex: /^DK\d{8}$/i,                     isEU: true,  viesMs: 'DK' },
+    EE: { vatRegex: /^EE\d{9}$/i,                     isEU: true,  viesMs: 'EE' },
+    FI: { vatRegex: /^FI\d{8}$/i,                     isEU: true,  viesMs: 'FI' },
+    GR: { vatRegex: /^EL\d{9}$/i,                     isEU: true,  viesMs: 'EL' },
+    HU: { vatRegex: /^HU\d{8}$/i,                     isEU: true,  viesMs: 'HU' },
+    IE: { vatRegex: /^IE\d[A-Z0-9+*]\d{5}[A-Z]{1,2}$/i, isEU: true, viesMs: 'IE' },
+    IT: { vatRegex: /^IT\d{11}$/i,                    isEU: true,  viesMs: 'IT' },
+    LV: { vatRegex: /^LV\d{11}$/i,                    isEU: true,  viesMs: 'LV' },
+    LT: { vatRegex: /^LT(\d{9}|\d{12})$/i,            isEU: true,  viesMs: 'LT' },
+    LU: { vatRegex: /^LU\d{8}$/i,                     isEU: true,  viesMs: 'LU' },
+    MT: { vatRegex: /^MT\d{8}$/i,                     isEU: true,  viesMs: 'MT' },
+    PL: { vatRegex: /^PL\d{10}$/i,                    isEU: true,  viesMs: 'PL' },
+    PT: { vatRegex: /^PT\d{9}$/i,                     isEU: true,  viesMs: 'PT' },
+    RO: { vatRegex: /^RO\d{2,10}$/i,                  isEU: true,  viesMs: 'RO' },
+    SK: { vatRegex: /^SK\d{10}$/i,                    isEU: true,  viesMs: 'SK' },
+    SI: { vatRegex: /^SI\d{8}$/i,                     isEU: true,  viesMs: 'SI' },
+    ES: { vatRegex: /^ES[A-Z0-9]\d{7}[A-Z0-9]$/i,    isEU: true,  viesMs: 'ES' },
+    SE: { vatRegex: /^SE\d{12}$/i,                    isEU: true,  viesMs: 'SE' },
+    GB: { vatRegex: /^GB(\d{9}|\d{12}|GD\d{3}|HA\d{3})$/i, isEU: false },
+    NO: { vatRegex: /^NO\d{9}MVA$/i,                  isEU: false },
+    CH: { vatRegex: /^CHE[\-]?\d{3}[\.]?\d{3}[\.]?\d{3}$/i, isEU: false },
+  };
+
+  // ── REG FIELD CONFIG (company registration number label + format per country) ──
+  const regFieldConfig = {
+    NL: { nl: 'KvK-nummer *',          en: 'KvK Number *',           de: 'KvK-Nummer *',          ph: '12345678',       regex: /^\d{8}$/ },
+    BE: { nl: 'KBO-nummer *',          en: 'KBO Number *',           de: 'KBO-Nummer *',          ph: '0123456789',     regex: /^(0|1)\d{9}$/ },
+    DE: { nl: 'Handelsregisternr. *',  en: 'Trade Register No. *',   de: 'HRB- / HRA-Nummer *',  ph: 'HRB 123456',     regex: /^HR[AB]\s?\d{1,6}$/i },
+    FR: { nl: 'SIRET / SIREN *',       en: 'SIRET / SIREN *',        de: 'SIRET / SIREN *',       ph: '12345678901234', regex: /^\d{9}(\d{5})?$/ },
+    GB: { nl: 'Company Number *',      en: 'Company Number *',       de: 'Company Number *',      ph: '12345678',       regex: /^\d{8}$|^[A-Z]{2}\d{6}$/i },
+    IT: { nl: 'P.IVA / C.F. *',        en: 'VAT ID / Tax Code *',    de: 'Steuernummer *',         ph: 'IT12345678901',  regex: /^[A-Z0-9]{11,16}$/i },
+    ES: { nl: 'CIF / NIF *',           en: 'CIF / NIF *',            de: 'CIF / NIF *',           ph: 'B12345678',      regex: /^[A-Z0-9]{9}$/i },
+    PL: { nl: 'NIP *',                 en: 'NIP *',                  de: 'NIP *',                 ph: '1234567890',     regex: /^\d{10}$/ },
+    SE: { nl: 'Organisatienummer *',   en: 'Organisation No. *',     de: 'Organisationsnr. *',    ph: '556123-4567',    regex: /^\d{6}-?\d{4}$/ },
+    DK: { nl: 'CVR-nummer *',          en: 'CVR Number *',           de: 'CVR-Nummer *',          ph: '12345678',       regex: /^\d{8}$/ },
+    FI: { nl: 'Y-tunnus *',            en: 'Business ID *',          de: 'Unternehmens-ID *',     ph: '1234567-8',      regex: /^\d{7}-\d$/ },
+    AT: { nl: 'Firmenbuchnummer *',    en: 'Company Register No. *', de: 'Firmenbuchnummer *',    ph: 'FN 123456a',     regex: /^FN\s?\d+\s?[A-Z]$/i },
+    PT: { nl: 'NIPC *',               en: 'NIPC *',                 de: 'NIPC *',                ph: '123456789',      regex: /^\d{9}$/ },
+    NL_default: null,
+  };
+
+  // ── VAT PLACEHOLDERS per country ──
+  const vatPlaceholders = {
+    NL: 'NL123456789B01', BE: 'BE0123456789',    DE: 'DE123456789',
+    FR: 'FRXX123456789',  AT: 'ATU12345678',     IT: 'IT12345678901',
+    ES: 'ESX1234567X',    PL: 'PL1234567890',    SE: 'SE123456789012',
+    DK: 'DK12345678',     FI: 'FI12345678',      PT: 'PT123456789',
+    GR: 'EL123456789',    CZ: 'CZ12345678',      HU: 'HU12345678',
+    RO: 'RO1234567890',   BG: 'BG123456789',     HR: 'HR12345678901',
+    SK: 'SK1234567890',   SI: 'SI12345678',      LT: 'LT123456789',
+    LV: 'LV12345678901',  LU: 'LU12345678',      MT: 'MT12345678',
+    IE: 'IE1A23456B',     CY: 'CY12345678A',     EE: 'EE123456789',
+    GB: 'GB123456789',    NO: 'NO123456789MVA',  CH: 'CHE-123.456.789',
+  };
+
+  // ── TRANSLATIONS ──
+  const t = {
+    nl: {
+      pageTitle: 'Brosi Interiors — Dealer Aanvraag',
+      subtitle: 'Dealer Aanvraag',
+      steps: ['Bedrijf', 'Contact', 'Winkel', 'Verificatie', 'Bevestiging'],
+      s1_title: 'Bedrijfsgegevens',
+      s1_desc: 'Vertel ons over uw onderneming',
+      s1_companyName: 'Bedrijfsnaam *',
+      s1_companyName_ph: 'Bijv. Interiors De Vries B.V.',
+      s1_kvk: 'KvK-nummer *',
+      s1_kvk_ph: '12345678',
+      s1_vat: 'BTW-nummer',
+      s1_vat_ph: 'NL123456789B01',
+      s1_street: 'Straat + huisnummer *',
+      s1_street_ph: 'Hoofdstraat 12',
+      s1_postal: 'Postcode *',
+      s1_postal_ph: '1234 AB',
+      s1_city: 'Plaats *',
+      s1_city_ph: 'Amsterdam',
+      s1_country: 'Land',
+      s2_title: 'Contactpersoon',
+      s2_desc: 'Wie is het eerste aanspreekpunt?',
+      s2_name: 'Volledige naam *',
+      s2_name_ph: 'Jan de Vries',
+      s2_email: 'E-mailadres *',
+      s2_email_ph: 'jan@interiorsdevries.nl',
+      s2_phone: 'Telefoonnummer *',
+      s2_phone_ph: '+31 6 12345678',
+      s2_role: 'Functie',
+      s2_role_ph: 'Eigenaar / Inkoper',
+      s3_title: 'Winkelinformatie',
+      s3_desc: 'Help ons uw bedrijf beter te begrijpen',
+      s3_type: 'Type zaak *',
+      shopTypes: ['Meubelzaak', 'Interieurstudio', 'Woonwinkel', 'E-commerce', 'Projectinrichter', 'Hotelinrichter', 'Overig'],
+      s3_website: 'Website URL',
+      s3_website_ph: 'https://www.uwwebsite.nl',
+      s4_title: 'Verificatie & Voorwaarden',
+      s4_desc: 'Laatste stap voor inzending',
+      s4_autoVerify: 'Automatische verificatie',
+      s4_kvkLabel: 'KvK-nummer:',
+      s4_vatLabel: 'BTW-nummer:',
+      s4_summary: 'Samenvatting',
+      s4_terms: 'Ik ga akkoord met de <a href="#">algemene dealervoorwaarden</a> van Brosi Interiors *',
+      s4_privacy: 'Ik ga akkoord met het <a href="#">privacybeleid</a> *',
+      s5_title: 'Aanvraag ontvangen!',
+      s5_expectTitle: 'Wat kunt u verwachten?',
+      s5_expect1: 'Bevestigingsmail binnen enkele minuten',
+      s5_expect2: 'Beoordeling door ons salesteam',
+      s5_expect3: 'Persoonlijk contact binnen 2 werkdagen',
+      s5_expect4: 'Uw dealeraccount & inloggegevens',
+      s5_msg: function(name, company) { return 'Bedankt, ' + name + '. Uw dealeraanvraag voor <strong>' + company + '</strong> is succesvol ingediend. Ons team beoordeelt uw aanvraag binnen 2 werkdagen.'; },
+      back: '← Vorige',
+      next: 'Volgende →',
+      submit: 'Aanvraag indienen ✓',
+      required: 'Verplicht',
+      invalidEmail: 'Ongeldig e-mailadres',
+      selectType: 'Selecteer een type',
+      checking: '... Controleren...',
+      viesChecking: '... VIES verificatie...',
+      kvkValid: '✓ Geverifieerd',
+      kvkInvalid: '✗ Niet gevonden',
+      vatValid: '✓ VIES geldig',
+      vatFormatInvalid: '✗ Ongeldig formaat',
+      vatPending: '⏳ Handmatig',
+      sum_company: 'Bedrijf',
+      sum_contact: 'Contact',
+      sum_type: 'Type',
+      sum_location: 'Locatie',
+      footer: 'Vragen? Neem contact op via',
+      footer_or: ' of bel',
+      cg_top: 'Topkeuze',
+      cg_eu: 'EU-landen',
+      cg_world: 'Wereldwijd',
+      stepMeta: function(cur, tot) { return 'Stap ' + cur + ' van ' + tot; },
+    },
+    en: {
+      pageTitle: 'Brosi Interiors — Dealer Application',
+      subtitle: 'Dealer Application',
+      steps: ['Company', 'Contact', 'Store', 'Verification', 'Confirmation'],
+      s1_title: 'Company Details',
+      s1_desc: 'Tell us about your company',
+      s1_companyName: 'Company Name *',
+      s1_companyName_ph: 'E.g. Smith Interiors Ltd',
+      s1_kvk: 'Chamber of Commerce No. *',
+      s1_kvk_ph: '12345678',
+      s1_vat: 'VAT Number',
+      s1_vat_ph: 'GB123456789',
+      s1_street: 'Street + number *',
+      s1_street_ph: 'High Street 12',
+      s1_postal: 'Postal Code *',
+      s1_postal_ph: 'SW1A 1AA',
+      s1_city: 'City *',
+      s1_city_ph: 'London',
+      s1_country: 'Country',
+      s2_title: 'Contact Person',
+      s2_desc: 'Who is the primary point of contact?',
+      s2_name: 'Full Name *',
+      s2_name_ph: 'John Smith',
+      s2_email: 'Email Address *',
+      s2_email_ph: 'john@smithinteriors.co.uk',
+      s2_phone: 'Phone Number *',
+      s2_phone_ph: '+44 20 7946 0958',
+      s2_role: 'Job Title',
+      s2_role_ph: 'Owner / Buyer',
+      s3_title: 'Store Information',
+      s3_desc: 'Help us understand your business better',
+      s3_type: 'Type of Business *',
+      shopTypes: ['Furniture Store', 'Interior Studio', 'Home Goods Store', 'E-commerce', 'Project Furnisher', 'Hotel Furnisher', 'Other'],
+      s3_website: 'Website URL',
+      s3_website_ph: 'https://www.yourwebsite.co.uk',
+      s4_title: 'Verification & Terms',
+      s4_desc: 'Final step before submission',
+      s4_autoVerify: 'Automatic Verification',
+      s4_kvkLabel: 'Chamber of Commerce No.:',
+      s4_vatLabel: 'VAT Number:',
+      s4_summary: 'Summary',
+      s4_terms: 'I agree to the <a href="#">general dealer terms</a> of Brosi Interiors *',
+      s4_privacy: 'I agree to the <a href="#">privacy policy</a> *',
+      s5_title: 'Application Received!',
+      s5_expectTitle: 'What to expect?',
+      s5_expect1: 'Confirmation email within minutes',
+      s5_expect2: 'Review by our sales team',
+      s5_expect3: 'Personal contact within 2 business days',
+      s5_expect4: 'Your dealer account & login details',
+      s5_msg: function(name, company) { return 'Thank you, ' + name + '. Your dealer application for <strong>' + company + '</strong> has been successfully submitted. Our team will review your application within 2 business days.'; },
+      back: '← Back',
+      next: 'Next →',
+      submit: 'Submit Application ✓',
+      required: 'Required',
+      invalidEmail: 'Invalid email address',
+      selectType: 'Select a type',
+      checking: '... Checking...',
+      viesChecking: '... VIES checking...',
+      kvkValid: '✓ Verified',
+      kvkInvalid: '✗ Not found',
+      vatValid: '✓ VIES valid',
+      vatFormatInvalid: '✗ Invalid format',
+      vatPending: '⏳ Manual check',
+      sum_company: 'Company',
+      sum_contact: 'Contact',
+      sum_type: 'Type',
+      sum_location: 'Location',
+      footer: 'Questions? Contact us at',
+      footer_or: ' or call',
+      cg_top: 'Top Choices',
+      cg_eu: 'EU Countries',
+      cg_world: 'Worldwide',
+      stepMeta: function(cur, tot) { return 'Step ' + cur + ' of ' + tot; },
+    },
+    de: {
+      pageTitle: 'Brosi Interiors — Händleranfrage',
+      subtitle: 'Händleranfrage',
+      steps: ['Unternehmen', 'Kontakt', 'Geschäft', 'Verifizierung', 'Bestätigung'],
+      s1_title: 'Unternehmensdaten',
+      s1_desc: 'Erzählen Sie uns von Ihrem Unternehmen',
+      s1_companyName: 'Unternehmensname *',
+      s1_companyName_ph: 'z. B. Schmidt Einrichtungen GmbH',
+      s1_kvk: 'Handelsregisternr. *',
+      s1_kvk_ph: 'HRB 123456',
+      s1_vat: 'USt-IdNr.',
+      s1_vat_ph: 'DE123456789',
+      s1_street: 'Straße + Hausnummer *',
+      s1_street_ph: 'Hauptstraße 12',
+      s1_postal: 'Postleitzahl *',
+      s1_postal_ph: '12345',
+      s1_city: 'Stadt *',
+      s1_city_ph: 'Berlin',
+      s1_country: 'Land',
+      s2_title: 'Ansprechpartner',
+      s2_desc: 'Wer ist die erste Ansprechperson?',
+      s2_name: 'Vollständiger Name *',
+      s2_name_ph: 'Max Müller',
+      s2_email: 'E-Mail-Adresse *',
+      s2_email_ph: 'max@schmidt-einrichtungen.de',
+      s2_phone: 'Telefonnummer *',
+      s2_phone_ph: '+49 30 12345678',
+      s2_role: 'Position',
+      s2_role_ph: 'Inhaber / Einkäufer',
+      s3_title: 'Geschäftsinformationen',
+      s3_desc: 'Helfen Sie uns, Ihr Unternehmen besser zu verstehen',
+      s3_type: 'Art des Geschäfts *',
+      shopTypes: ['Möbelgeschäft', 'Interieurstudio', 'Wohnwarengeschäft', 'E-Commerce', 'Projekteinrichter', 'Hoteleinrichter', 'Sonstiges'],
+      s3_website: 'Website URL',
+      s3_website_ph: 'https://www.ihrewebseite.de',
+      s4_title: 'Verifizierung & Bedingungen',
+      s4_desc: 'Letzter Schritt vor der Einreichung',
+      s4_autoVerify: 'Automatische Verifizierung',
+      s4_kvkLabel: 'Handelsregisternr.:',
+      s4_vatLabel: 'USt-IdNr.:',
+      s4_summary: 'Zusammenfassung',
+      s4_terms: 'Ich stimme den <a href="#">allgemeinen Händlerbedingungen</a> von Brosi Interiors zu *',
+      s4_privacy: 'Ich stimme der <a href="#">Datenschutzrichtlinie</a> zu *',
+      s5_title: 'Anfrage erhalten!',
+      s5_expectTitle: 'Was können Sie erwarten?',
+      s5_expect1: 'Bestätigungsmail innerhalb weniger Minuten',
+      s5_expect2: 'Prüfung durch unser Vertriebsteam',
+      s5_expect3: 'Persönlicher Kontakt innerhalb von 2 Werktagen',
+      s5_expect4: 'Ihr Händlerkonto & Zugangsdaten',
+      s5_msg: function(name, company) { return 'Vielen Dank, ' + name + '. Ihre Händleranfrage für <strong>' + company + '</strong> wurde erfolgreich eingereicht. Unser Team prüft Ihre Anfrage innerhalb von 2 Werktagen.'; },
+      back: '← Zurück',
+      next: 'Weiter →',
+      submit: 'Anfrage einreichen ✓',
+      required: 'Pflichtfeld',
+      invalidEmail: 'Ungültige E-Mail-Adresse',
+      selectType: 'Bitte auswählen',
+      checking: '... Prüfen...',
+      viesChecking: '... VIES Prüfung...',
+      kvkValid: '✓ Verifiziert',
+      kvkInvalid: '✗ Nicht gefunden',
+      vatValid: '✓ VIES gültig',
+      vatFormatInvalid: '✗ Ungültiges Format',
+      vatPending: '⏳ Manuell',
+      sum_company: 'Unternehmen',
+      sum_contact: 'Kontakt',
+      sum_type: 'Art',
+      sum_location: 'Standort',
+      footer: 'Fragen? Kontaktieren Sie uns unter',
+      footer_or: ' oder rufen Sie an',
+      cg_top: 'Favoriten',
+      cg_eu: 'EU-Länder',
+      cg_world: 'Weltweit',
+      stepMeta: function(cur, tot) { return 'Schritt ' + cur + ' von ' + tot; },
+    }
+  };
+
+  // ── COUNTRY DATA ──
+  const countryData = {
+    top: [
+      { code: 'NL', nl: 'Nederland', en: 'Netherlands', de: 'Niederlande' },
+      { code: 'BE', nl: 'België', en: 'Belgium', de: 'Belgien' },
+      { code: 'DE', nl: 'Duitsland', en: 'Germany', de: 'Deutschland' },
+      { code: 'FR', nl: 'Frankrijk', en: 'France', de: 'Frankreich' },
+    ],
+    eu: [
+      { code: 'AT', nl: 'Oostenrijk', en: 'Austria', de: 'Österreich' },
+      { code: 'BG', nl: 'Bulgarije', en: 'Bulgaria', de: 'Bulgarien' },
+      { code: 'HR', nl: 'Kroatië', en: 'Croatia', de: 'Kroatien' },
+      { code: 'CY', nl: 'Cyprus', en: 'Cyprus', de: 'Zypern' },
+      { code: 'CZ', nl: 'Tsjechië', en: 'Czech Republic', de: 'Tschechien' },
+      { code: 'DK', nl: 'Denemarken', en: 'Denmark', de: 'Dänemark' },
+      { code: 'EE', nl: 'Estland', en: 'Estonia', de: 'Estland' },
+      { code: 'FI', nl: 'Finland', en: 'Finland', de: 'Finnland' },
+      { code: 'GR', nl: 'Griekenland', en: 'Greece', de: 'Griechenland' },
+      { code: 'HU', nl: 'Hongarije', en: 'Hungary', de: 'Ungarn' },
+      { code: 'IE', nl: 'Ierland', en: 'Ireland', de: 'Irland' },
+      { code: 'IT', nl: 'Italië', en: 'Italy', de: 'Italien' },
+      { code: 'LV', nl: 'Letland', en: 'Latvia', de: 'Lettland' },
+      { code: 'LT', nl: 'Litouwen', en: 'Lithuania', de: 'Litauen' },
+      { code: 'LU', nl: 'Luxemburg', en: 'Luxembourg', de: 'Luxemburg' },
+      { code: 'MT', nl: 'Malta', en: 'Malta', de: 'Malta' },
+      { code: 'PL', nl: 'Polen', en: 'Poland', de: 'Polen' },
+      { code: 'PT', nl: 'Portugal', en: 'Portugal', de: 'Portugal' },
+      { code: 'RO', nl: 'Roemenië', en: 'Romania', de: 'Rumänien' },
+      { code: 'SK', nl: 'Slowakije', en: 'Slovakia', de: 'Slowakei' },
+      { code: 'SI', nl: 'Slovenië', en: 'Slovenia', de: 'Slowenien' },
+      { code: 'ES', nl: 'Spanje', en: 'Spain', de: 'Spanien' },
+      { code: 'SE', nl: 'Zweden', en: 'Sweden', de: 'Schweden' },
+    ],
+    world: [
+      { code: 'GB', nl: 'Verenigd Koninkrijk', en: 'United Kingdom', de: 'Vereinigtes Königreich' },
+      { code: 'NO', nl: 'Noorwegen', en: 'Norway', de: 'Norwegen' },
+      { code: 'CH', nl: 'Zwitserland', en: 'Switzerland', de: 'Schweiz' },
+      { code: 'TR', nl: 'Turkije', en: 'Turkey', de: 'Türkei' },
+      { code: 'RU', nl: 'Rusland', en: 'Russia', de: 'Russland' },
+      { code: 'UA', nl: 'Oekraïne', en: 'Ukraine', de: 'Ukraine' },
+      { code: 'US', nl: 'Verenigde Staten', en: 'United States', de: 'Vereinigte Staaten' },
+      { code: 'CA', nl: 'Canada', en: 'Canada', de: 'Kanada' },
+      { code: 'AU', nl: 'Australië', en: 'Australia', de: 'Australien' },
+      { code: 'NZ', nl: 'Nieuw-Zeeland', en: 'New Zealand', de: 'Neuseeland' },
+      { code: 'JP', nl: 'Japan', en: 'Japan', de: 'Japan' },
+      { code: 'CN', nl: 'China', en: 'China', de: 'China' },
+      { code: 'KR', nl: 'Zuid-Korea', en: 'South Korea', de: 'Südkorea' },
+      { code: 'IN', nl: 'India', en: 'India', de: 'Indien' },
+      { code: 'SG', nl: 'Singapore', en: 'Singapore', de: 'Singapur' },
+      { code: 'AE', nl: 'Ver. Arabische Emiraten', en: 'United Arab Emirates', de: 'Vereinigte Arabische Emirate' },
+      { code: 'BR', nl: 'Brazilië', en: 'Brazil', de: 'Brasilien' },
+      { code: 'MX', nl: 'Mexico', en: 'Mexico', de: 'Mexiko' },
+      { code: 'ZA', nl: 'Zuid-Afrika', en: 'South Africa', de: 'Südafrika' },
+      { code: 'OTHER', nl: 'Overig', en: 'Other', de: 'Sonstiges' },
+    ]
+  };
+
+  // ── LANGUAGE ──
+  function detectLang() {
+    const stored = sessionStorage.getItem('brosi_lang');
+    if (stored && t[stored]) return stored;
+    const bl = (navigator.language || 'nl').toLowerCase();
+    if (bl.startsWith('de')) return 'de';
+    if (bl.startsWith('en')) return 'en';
+    return 'nl';
+  }
+
+  function setLang(lang) {
+    currentLang = lang;
+    sessionStorage.setItem('brosi_lang', lang);
+    document.documentElement.lang = lang;
+    applyLang();
+    renderProgress();
+    renderShopPills();
+    renderCountrySelect();
+    countryChanged();
+    document.querySelectorAll('.lang-btn').forEach(function(b) {
+      b.classList.toggle('active', b.dataset.lang === lang);
+    });
+  }
+
+  function applyLang() {
+    var tr = t[currentLang];
+    document.title = tr.pageTitle;
+    document.querySelectorAll('[data-i18n]').forEach(function(el) {
+      var key = el.dataset.i18n;
+      if (tr[key] !== undefined) el.textContent = tr[key];
+    });
+    document.querySelectorAll('[data-i18n-html]').forEach(function(el) {
+      var key = el.dataset.i18nHtml;
+      if (tr[key] !== undefined) el.innerHTML = tr[key];
+    });
+    document.querySelectorAll('[data-i18n-ph]').forEach(function(el) {
+      var key = el.dataset.i18nPh;
+      if (tr[key] !== undefined) el.placeholder = tr[key];
+    });
+    updateNavText();
+  }
+
+  function updateNavText() {
+    var tr = t[currentLang];
+    var btnNext = document.getElementById('btnNext');
+    var btnBack = document.getElementById('btnBack');
+    if (btnNext) btnNext.textContent = currentStep === 4 ? tr.submit : tr.next;
+    if (btnBack) btnBack.textContent = tr.back;
+  }
+
+  function renderCountrySelect() {
+    var sel = document.getElementById('country');
+    var currentVal = sel.value || 'NL';
+    var lang = currentLang;
+    var tr = t[lang];
+    sel.innerHTML = '';
+
+    var topGroup = document.createElement('optgroup');
+    topGroup.label = '— ' + tr.cg_top + ' —';
+    countryData.top.forEach(function(c) {
+      var opt = document.createElement('option');
+      opt.value = c.code;
+      opt.textContent = c[lang];
+      topGroup.appendChild(opt);
+    });
+    sel.appendChild(topGroup);
+
+    var euGroup = document.createElement('optgroup');
+    euGroup.label = '— ' + tr.cg_eu + ' —';
+    countryData.eu.forEach(function(c) {
+      var opt = document.createElement('option');
+      opt.value = c.code;
+      opt.textContent = c[lang];
+      euGroup.appendChild(opt);
+    });
+    sel.appendChild(euGroup);
+
+    var worldGroup = document.createElement('optgroup');
+    worldGroup.label = '— ' + tr.cg_world + ' —';
+    countryData.world.forEach(function(c) {
+      var opt = document.createElement('option');
+      opt.value = c.code;
+      opt.textContent = c[lang];
+      worldGroup.appendChild(opt);
+    });
+    sel.appendChild(worldGroup);
+
+    sel.value = currentVal;
+    if (!sel.value) sel.value = 'NL';
+  }
+
+  function getCountryName(code) {
+    var all = countryData.top.concat(countryData.eu).concat(countryData.world);
+    var c = all.find(function(x) { return x.code === code; });
+    return c ? c[currentLang] : code;
+  }
 
   // ── INIT ──
   function init() {
+    currentLang = detectLang();
+    document.documentElement.lang = currentLang;
+    document.querySelectorAll('.lang-btn').forEach(function(b) {
+      b.classList.toggle('active', b.dataset.lang === currentLang);
+    });
+    applyLang();
     renderProgress();
     renderShopPills();
+    renderCountrySelect();
+    countryChanged();
     updateView();
   }
 
+  function countryChanged() {
+    var country = document.getElementById('country').value;
+    var cfg = regFieldConfig[country];
+    var label = document.querySelector('#f-kvkNumber label');
+    var input = document.getElementById('kvkNumber');
+    if (label && input) {
+      if (cfg) {
+        label.textContent = cfg[currentLang] || cfg.nl;
+        input.placeholder = cfg.ph;
+      } else {
+        var generic = { nl: 'Registratienummer *', en: 'Registration No. *', de: 'Registrierungsnr. *' };
+        label.textContent = generic[currentLang];
+        input.placeholder = '';
+      }
+    }
+    var vatInput = document.getElementById('vatNumber');
+    if (vatInput) {
+      vatInput.placeholder = vatPlaceholders[country] || (currentLang === 'de' ? 'USt-IdNr.' : currentLang === 'en' ? 'VAT Number' : 'BTW-nummer');
+    }
+  }
+
   function renderProgress() {
-    const el = document.getElementById('progress');
-    el.innerHTML = steps.map((s, i) => {
-      let html = '<div class="step-item"><div class="step-col">';
+    var steps = t[currentLang].steps.map(function(label, i) { return { id: i + 1, label: label }; });
+    var el = document.getElementById('progress');
+    el.innerHTML = steps.map(function(s, i) {
+      var html = '<div class="step-item"><div class="step-col">';
       html += '<div class="step-circle" id="sc' + s.id + '">' + s.id + '</div>';
       html += '<span class="step-label" id="sl' + s.id + '">' + s.label + '</span>';
       html += '</div></div>';
@@ -395,44 +844,42 @@
   }
 
   function renderShopPills() {
-    const el = document.getElementById('shopTypePills');
-    el.innerHTML = shopTypes.map(t =>
-      '<button class="pill" data-type="' + t + '" onclick="selectShopType(\'' + t + '\')">' + t + '</button>'
-    ).join('');
+    var el = document.getElementById('shopTypePills');
+    el.innerHTML = t[currentLang].shopTypes.map(function(type, idx) {
+      return '<button class="pill' + (selectedShopTypeIndex === idx ? ' selected' : '') + '" onclick="selectShopType(' + idx + ')">' + type + '</button>';
+    }).join('');
   }
 
-  function selectShopType(type) {
-    selectedShopType = type;
-    document.querySelectorAll('.pill').forEach(p => {
-      p.classList.toggle('selected', p.dataset.type === type);
+  function selectShopType(idx) {
+    selectedShopTypeIndex = idx;
+    document.querySelectorAll('.pill').forEach(function(p, i) {
+      p.classList.toggle('selected', i === idx);
     });
     clearError('f-shopType');
   }
 
   // ── NAVIGATION ──
   function updateView() {
-    // Panels
-    for (let i = 1; i <= 5; i++) {
-      const panel = document.getElementById('panel' + i);
+    for (var i = 1; i <= 5; i++) {
+      var panel = document.getElementById('panel' + i);
       panel.classList.toggle('active', i === currentStep);
     }
 
-    // Progress circles
-    steps.forEach(s => {
-      const circle = document.getElementById('sc' + s.id);
-      const label = document.getElementById('sl' + s.id);
-      const line = document.getElementById('line' + s.id);
-
+    var steps = t[currentLang].steps.map(function(label, i) { return { id: i + 1 }; });
+    steps.forEach(function(s) {
+      var circle = document.getElementById('sc' + s.id);
+      var label = document.getElementById('sl' + s.id);
+      var line = document.getElementById('line' + s.id);
+      if (!circle) return;
       circle.className = 'step-circle' + (currentStep >= s.id ? ' active' : '') + (currentStep === s.id ? ' current' : '');
       circle.textContent = currentStep > s.id ? '✓' : s.id;
       label.className = 'step-label' + (currentStep >= s.id ? ' active' : '') + (currentStep === s.id ? ' current' : '');
       if (line) line.className = 'step-line' + (currentStep > s.id ? ' done' : '');
     });
 
-    // Nav buttons
-    const navBar = document.getElementById('navBar');
-    const btnBack = document.getElementById('btnBack');
-    const btnNext = document.getElementById('btnNext');
+    var navBar = document.getElementById('navBar');
+    var btnBack = document.getElementById('btnBack');
+    var btnNext = document.getElementById('btnNext');
 
     if (currentStep === 5) {
       navBar.style.display = 'none';
@@ -440,19 +887,40 @@
       navBar.style.display = 'flex';
       navBar.className = currentStep > 1 ? 'nav-bar has-back' : 'nav-bar';
       btnBack.style.display = currentStep > 1 ? 'block' : 'none';
-      btnNext.textContent = currentStep === 4 ? 'Aanvraag indienen ✓' : 'Volgende →';
     }
 
-    // Step 4 specifics
+    updateNavText();
+
+    // Step counter
+    var metaEl = document.getElementById('stepMeta');
+    if (metaEl && currentStep < 5) {
+      var tr = t[currentLang];
+      metaEl.textContent = tr.stepMeta(currentStep, 5);
+      metaEl.style.display = '';
+    } else if (metaEl) {
+      metaEl.style.display = 'none';
+    }
+
     if (currentStep === 4) populateStep4();
     if (currentStep === 5) animateStep5();
 
-    // Animate panel
-    const activePanel = document.querySelector('.step-panel.active .step-content');
+    var activePanel = document.querySelector('.step-panel.active .step-content');
     if (activePanel) {
       activePanel.style.animation = 'none';
-      activePanel.offsetHeight; // reflow
+      activePanel.offsetHeight;
       activePanel.style.animation = 'slideInRight 0.28s ease';
+    }
+
+    // Scroll card into view (helpful on mobile)
+    var card = document.querySelector('.card');
+    if (card) card.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    // Auto-focus first input of the new step
+    if (currentStep < 5) {
+      setTimeout(function() {
+        var first = document.querySelector('#panel' + currentStep + ' input:not([type="checkbox"]), #panel' + currentStep + ' select');
+        if (first) first.focus({ preventScroll: true });
+      }, 60);
     }
   }
 
@@ -464,7 +932,7 @@
 
   function goBack() {
     currentStep = Math.max(currentStep - 1, 1);
-    const activePanel = document.querySelector('.step-panel.active .step-content');
+    var activePanel = document.querySelector('.step-panel.active .step-content');
     if (activePanel) {
       activePanel.style.animation = 'none';
       activePanel.offsetHeight;
@@ -476,113 +944,199 @@
   // ── VALIDATION ──
   function val(id) { return (document.getElementById(id).value || '').trim(); }
   function setError(fieldId, msg) {
-    const f = document.getElementById(fieldId);
+    var f = document.getElementById(fieldId);
     if (f) {
       f.classList.add('has-error');
-      let existing = f.querySelector('.error-msg');
+      var existing = f.querySelector('.error-msg');
       if (!existing) { existing = document.createElement('div'); existing.className = 'error-msg'; f.appendChild(existing); }
       existing.textContent = msg;
     }
   }
   function clearError(fieldId) {
-    const f = document.getElementById(fieldId);
-    if (f) { f.classList.remove('has-error'); const e = f.querySelector('.error-msg'); if (e) e.remove(); }
+    var f = document.getElementById(fieldId);
+    if (f) { f.classList.remove('has-error'); var e = f.querySelector('.error-msg'); if (e) e.remove(); }
   }
   function clearAllErrors() {
-    document.querySelectorAll('.has-error').forEach(el => el.classList.remove('has-error'));
-    document.querySelectorAll('.error-msg').forEach(el => el.remove());
+    document.querySelectorAll('.has-error').forEach(function(el) { el.classList.remove('has-error'); });
+    document.querySelectorAll('.error-msg').forEach(function(el) { el.remove(); });
   }
 
   function validateStep() {
     clearAllErrors();
-    let valid = true;
+    var valid = true;
+    var tr = t[currentLang];
 
     if (currentStep === 1) {
-      if (!val('companyName')) { setError('f-companyName', 'Verplicht'); valid = false; }
-      if (!val('kvkNumber')) { setError('f-kvkNumber', 'Verplicht'); valid = false; }
-      if (!val('street')) { setError('f-street', 'Verplicht'); valid = false; }
-      if (!val('postalCode')) { setError('f-postalCode', 'Verplicht'); valid = false; }
-      if (!val('city')) { setError('f-city', 'Verplicht'); valid = false; }
+      if (!val('companyName')) { setError('f-companyName', tr.required); valid = false; }
+      if (!val('kvkNumber')) { setError('f-kvkNumber', tr.required); valid = false; }
+      if (!val('street')) { setError('f-street', tr.required); valid = false; }
+      if (!val('postalCode')) { setError('f-postalCode', tr.required); valid = false; }
+      if (!val('city')) { setError('f-city', tr.required); valid = false; }
     }
-
     if (currentStep === 2) {
-      if (!val('contactName')) { setError('f-contactName', 'Verplicht'); valid = false; }
-      if (!val('contactEmail')) { setError('f-contactEmail', 'Verplicht'); valid = false; }
-      else if (!/\S+@\S+\.\S+/.test(val('contactEmail'))) { setError('f-contactEmail', 'Ongeldig e-mailadres'); valid = false; }
-      if (!val('contactPhone')) { setError('f-contactPhone', 'Verplicht'); valid = false; }
+      if (!val('contactName')) { setError('f-contactName', tr.required); valid = false; }
+      if (!val('contactEmail')) { setError('f-contactEmail', tr.required); valid = false; }
+      else if (!/\S+@\S+\.\S+/.test(val('contactEmail'))) { setError('f-contactEmail', tr.invalidEmail); valid = false; }
+      if (!val('contactPhone')) { setError('f-contactPhone', tr.required); valid = false; }
     }
-
     if (currentStep === 3) {
-      if (!selectedShopType) { setError('f-shopType', 'Selecteer een type'); valid = false; }
-      if (!val('estimatedVolume')) { setError('f-estimatedVolume', 'Selecteer een volume'); valid = false; }
+      if (selectedShopTypeIndex < 0) { setError('f-shopType', tr.selectType); valid = false; }
     }
-
     if (currentStep === 4) {
-      if (!document.getElementById('agreeTerms').checked) { setError('f-agreeTerms', 'Verplicht'); valid = false; }
-      if (!document.getElementById('agreePrivacy').checked) { setError('f-agreePrivacy', 'Verplicht'); valid = false; }
+      if (!document.getElementById('agreeTerms').checked) { setError('f-agreeTerms', tr.required); valid = false; }
+      if (!document.getElementById('agreePrivacy').checked) { setError('f-agreePrivacy', tr.required); valid = false; }
     }
-
     return valid;
   }
 
-  // ── STEP 4: Populate ──
-  function populateStep4() {
-    document.getElementById('showKvk').textContent = val('kvkNumber') || '—';
-    document.getElementById('showVat').textContent = val('vatNumber') || '—';
+  // ── STEP 4: Populate (async — Option A: format, Option B: VIES) ──
+  async function populateStep4() {
+    var tr = t[currentLang];
+    var country = document.getElementById('country').value;
+    var cfg = countryConfig[country] || {};
+    var regCfg = regFieldConfig[country];
+    var kvkVal = val('kvkNumber');
+    var vatVal = val('vatNumber').toUpperCase().replace(/\s/g, '');
 
-    const kvkBadge = document.getElementById('kvkBadge');
-    const vatBadge = document.getElementById('vatBadge');
-    kvkBadge.className = 'badge loading'; kvkBadge.textContent = '... Controleren...';
-    vatBadge.className = 'badge loading'; vatBadge.textContent = '... Controleren...';
+    document.getElementById('showKvk').textContent = kvkVal || '—';
+    document.getElementById('showVat').textContent = vatVal || '—';
 
-    setTimeout(() => {
-      const kvkOk = val('kvkNumber').length >= 8;
-      kvkBadge.className = 'badge ' + (kvkOk ? 'valid' : 'invalid');
-      kvkBadge.textContent = kvkOk ? '✓ Geverifieerd' : '✗ Niet gevonden';
-    }, 1200);
+    var kvkBadge = document.getElementById('kvkBadge');
+    var vatBadge = document.getElementById('vatBadge');
 
-    setTimeout(() => {
-      const vatOk = val('vatNumber').length >= 9;
-      vatBadge.className = 'badge ' + (vatOk ? 'valid' : 'pending');
-      vatBadge.textContent = vatOk ? '✓ VIES geldig' : '⏳ Handmatig';
-    }, 1800);
+    // Option A — registration number format check
+    kvkBadge.className = 'badge loading';
+    kvkBadge.textContent = tr.checking;
+    setTimeout(function() {
+      var regOk = regCfg && regCfg.regex ? regCfg.regex.test(kvkVal) : kvkVal.length >= 6;
+      kvkBadge.className = 'badge ' + (regOk ? 'valid' : 'invalid');
+      kvkBadge.textContent = regOk ? tr.kvkValid : tr.kvkInvalid;
+    }, 900);
 
+    // Option A + B — VAT format then VIES
+    if (!vatVal) {
+      vatBadge.className = 'badge pending';
+      vatBadge.textContent = tr.vatPending;
+    } else {
+      vatBadge.className = 'badge loading';
+      vatBadge.textContent = tr.checking;
+      var formatOk = cfg.vatRegex ? cfg.vatRegex.test(vatVal) : false;
+
+      if (!formatOk) {
+        setTimeout(function() {
+          vatBadge.className = 'badge invalid';
+          vatBadge.textContent = tr.vatFormatInvalid;
+        }, 900);
+      } else if (cfg.isEU) {
+        setTimeout(async function() {
+          vatBadge.className = 'badge loading';
+          vatBadge.textContent = tr.viesChecking;
+          var result = await checkVIES(cfg.viesMs, vatVal);
+          if (result.manual || result.apiError) {
+            vatBadge.className = 'badge pending';
+            vatBadge.textContent = tr.vatPending;
+          } else if (result.valid) {
+            vatBadge.className = 'badge valid';
+            vatBadge.textContent = tr.vatValid;
+          } else {
+            vatBadge.className = 'badge invalid';
+            vatBadge.textContent = tr.kvkInvalid;
+          }
+        }, 900);
+      } else {
+        setTimeout(function() {
+          vatBadge.className = 'badge pending';
+          vatBadge.textContent = tr.vatPending;
+        }, 900);
+      }
+    }
+
+    var shopLabel = selectedShopTypeIndex >= 0 ? t[currentLang].shopTypes[selectedShopTypeIndex] : '—';
+    var countryName = getCountryName(country);
     document.getElementById('summaryGrid').innerHTML =
-      '<div><strong>Bedrijf:</strong> ' + val('companyName') + '</div>' +
-      '<div><strong>Contact:</strong> ' + val('contactName') + '</div>' +
-      '<div><strong>Type:</strong> ' + selectedShopType + '</div>' +
-      '<div><strong>Volume:</strong> ' + val('estimatedVolume') + '</div>' +
-      '<div><strong>Locatie:</strong> ' + val('city') + ', ' + val('country') + '</div>' +
-      '<div><strong>Vestigingen:</strong> ' + val('locations') + '</div>';
+      '<div><strong>' + tr.sum_company + ':</strong> ' + val('companyName') + '</div>' +
+      '<div><strong>' + tr.sum_contact + ':</strong> ' + val('contactName') + '</div>' +
+      '<div><strong>' + tr.sum_type + ':</strong> ' + shopLabel + '</div>' +
+      '<div><strong>' + tr.sum_location + ':</strong> ' + val('city') + ', ' + countryName + '</div>';
+  }
+
+  async function checkVIES(ms, vatFull) {
+    try {
+      var stripped = vatFull.startsWith(ms) ? vatFull.slice(ms.length) : vatFull;
+      var controller = new AbortController();
+      var timeout = setTimeout(function() { controller.abort(); }, 9000);
+      var resp = await fetch('/api/vies?ms=' + encodeURIComponent(ms) + '&vat=' + encodeURIComponent(stripped), { signal: controller.signal });
+      clearTimeout(timeout);
+      if (!resp.ok) return { manual: true };
+      return await resp.json();
+    } catch (e) {
+      return { manual: true };
+    }
   }
 
   // ── STEP 5: Animate ──
   function animateStep5() {
-    const name = val('contactName').split(' ')[0] || '';
-    document.getElementById('successMsg').innerHTML =
-      'Bedankt, ' + name + '. Uw dealeraanvraag voor <strong>' + val('companyName') + '</strong> is succesvol ingediend. Ons team beoordeelt uw aanvraag binnen 2 werkdagen.';
+    var name = val('contactName').split(' ')[0] || '';
+    var company = val('companyName');
+    document.getElementById('successMsg').innerHTML = t[currentLang].s5_msg(name, company);
 
-    setTimeout(() => {
+    setTimeout(function() {
       document.getElementById('successIcon').classList.add('animate');
     }, 100);
 
-    document.querySelectorAll('.expect-item').forEach((item, i) => {
-      setTimeout(() => item.classList.add('show'), 300 + i * 100);
+    document.querySelectorAll('.expect-item').forEach(function(item, i) {
+      setTimeout(function() { item.classList.add('show'); }, 300 + i * 100);
     });
   }
 
   // ── Clear errors on input ──
   document.addEventListener('input', function(e) {
-    const field = e.target.closest('.field');
+    var field = e.target.closest('.field');
     if (field && field.classList.contains('has-error')) {
       field.classList.remove('has-error');
-      const err = field.querySelector('.error-msg');
+      var err = field.querySelector('.error-msg');
       if (err) err.remove();
     }
   });
 
+  // ── Blur validation ──
+  function addBlurValidation(id, fieldId, validator) {
+    var el = document.getElementById(id);
+    if (!el) return;
+    el.addEventListener('blur', function() {
+      var msg = validator();
+      if (msg) setError(fieldId, msg);
+      else clearError(fieldId);
+    });
+  }
+
+  function setupBlurValidation() {
+    addBlurValidation('companyName', 'f-companyName', function() { return !val('companyName') ? t[currentLang].required : ''; });
+    addBlurValidation('kvkNumber',   'f-kvkNumber',   function() { return !val('kvkNumber')   ? t[currentLang].required : ''; });
+    addBlurValidation('street',      'f-street',      function() { return !val('street')      ? t[currentLang].required : ''; });
+    addBlurValidation('postalCode',  'f-postalCode',  function() { return !val('postalCode')  ? t[currentLang].required : ''; });
+    addBlurValidation('city',        'f-city',        function() { return !val('city')        ? t[currentLang].required : ''; });
+    addBlurValidation('contactName', 'f-contactName', function() { return !val('contactName') ? t[currentLang].required : ''; });
+    addBlurValidation('contactPhone','f-contactPhone',function() { return !val('contactPhone')? t[currentLang].required : ''; });
+    addBlurValidation('contactEmail','f-contactEmail',function() {
+      if (!val('contactEmail')) return t[currentLang].required;
+      if (!/\S+@\S+\.\S+/.test(val('contactEmail'))) return t[currentLang].invalidEmail;
+      return '';
+    });
+  }
+
+  // ── Enter key advances to next step ──
+  document.addEventListener('keydown', function(e) {
+    if (e.key !== 'Enter') return;
+    var tag = e.target.tagName;
+    if (tag === 'TEXTAREA' || tag === 'BUTTON' || e.target.classList.contains('pill')) return;
+    e.preventDefault();
+    if (currentStep < 5) goNext();
+  });
+
   // ── GO ──
   init();
+  setupBlurValidation();
 </script>
 </body>
 </html>

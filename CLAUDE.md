@@ -12,9 +12,9 @@ functionele referentie en wordt handmatig overgenomen naar de Next.js implementa
 - Stack eindproduct: Vercel (Next.js), Neon Postgres, Resend (e-mail)
 
 ## Merkrichtlijnen
-- Kleuren: donkerbruin `#2D1B0E`, bruin `#8b5e3c`, goud `#c9a96e`, zand `#e8e0d5`, wit `#faf8f5`, achtergrond `#ede5da`
+- Kleuren: zie globale CLAUDE.md — donkerbruin `#3d2b1f`, bruin `#8b5e3c`, goud `#c9a96e`, zand `#e8e0d5`, wit `#faf8f5`
 - Fonts: Cormorant Garamond (headings, light 300), Jost (body)
-- Knoppen: border-radius 12px
+- Knoppen: border-radius 6px (iets ronder dan globaal, past bij form-context)
 - Geen parallax, bounce of clip-path animaties
 
 ## Functionaliteit (prototype)
