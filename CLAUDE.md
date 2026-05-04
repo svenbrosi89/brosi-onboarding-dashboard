@@ -36,7 +36,7 @@ Eindproduct ondersteunt: NL / EN / DE
 ## Aanpassingen doorvoeren
 - Werk altijd in `index.html`
 - Test door het bestand te openen in de browser (geen server nodig)
-- Deploy preview: sleep de map naar `app.netlify.com/drop`
+- Deploy: `git push origin main` — Vercel deployt automatisch via `https://brosi-onboarding-dashboard.vercel.app`
 
 ## Contact
 - dealers@brosi-interiors.com
