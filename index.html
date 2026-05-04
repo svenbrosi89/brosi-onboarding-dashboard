@@ -99,6 +99,14 @@
     .pill.selected { border: 2px solid var(--gold); background: var(--brown); color: var(--white); font-weight: 600; }
     .pill:hover:not(.selected) { border-color: var(--gold); color: var(--text); }
     .summary-type-badge { display: inline-block; padding: 2px 10px; border: 1px solid var(--border); border-radius: 4px; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--brown); background: var(--gold-soft); }
+    .label-row { display: flex; align-items: center; gap: 6px; margin-bottom: 6px; }
+    .label-row label { display: inline; margin-bottom: 0; }
+    .field-hint { position: relative; display: inline-flex; align-items: center; }
+    .field-hint-icon { display: inline-flex; align-items: center; justify-content: center; width: 15px; height: 15px; border-radius: 50%; border: 1px solid var(--gold); color: var(--gold); font-size: 9px; font-family: 'Jost', sans-serif; font-weight: 600; cursor: help; flex-shrink: 0; }
+    .field-hint-text { position: absolute; left: 50%; bottom: calc(100% + 8px); transform: translateX(-50%); background: var(--brown-dark); color: var(--white); font-size: 12px; font-family: 'Jost', sans-serif; font-weight: 400; letter-spacing: 0; text-transform: none; line-height: 1.5; padding: 8px 12px; border-radius: 4px; width: 220px; white-space: normal; opacity: 0; pointer-events: none; transition: opacity 0.15s ease; z-index: 20; }
+    .field-hint-text::after { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border: 5px solid transparent; border-top-color: var(--brown-dark); }
+    .field-hint:hover .field-hint-text, .field-hint:focus-within .field-hint-text { opacity: 1; }
+    .summary-edit { margin-left: 8px; font-size: 11px; color: var(--gold); text-decoration: underline; cursor: pointer; font-weight: 400; text-transform: none; letter-spacing: 0; }
 
     /* Verification box */
     .verify-box { background: var(--sand-light); border-radius: 4px; padding: 20px; margin-bottom: 24px; border: 1px solid var(--border); }
@@ -239,7 +247,10 @@
           </div>
 
           <div class="field" id="f-kvkNumber">
-            <label data-i18n="s1_kvk">KvK-nummer *</label>
+            <div class="label-row">
+              <label data-i18n="s1_kvk">KvK-nummer *</label>
+              <span class="field-hint" tabindex="0"><span class="field-hint-icon" aria-label="info">?</span><span class="field-hint-text" role="tooltip" data-i18n="hint_kvk">Uw handelsnummer bij de Kamer van Koophandel. Afhankelijk van uw land verschilt het formaat (bijv. 8 cijfers voor NL).</span></span>
+            </div>
             <input id="kvkNumber" data-i18n-ph="s1_kvk_ph" placeholder="12345678" autocomplete="off" aria-required="true">
           </div>
 
@@ -260,7 +271,10 @@
           </div>
 
           <div class="field">
-            <label data-i18n="s1_vat">BTW-nummer</label>
+            <div class="label-row">
+              <label data-i18n="s1_vat">BTW-nummer</label>
+              <span class="field-hint" tabindex="0"><span class="field-hint-icon" aria-label="info">?</span><span class="field-hint-text" role="tooltip" data-i18n="hint_vat">Optioneel. Uw BTW-identificatienummer (bijv. NL123456789B01). EU-nummers worden automatisch geverifieerd.</span></span>
+            </div>
             <input id="vatNumber" data-i18n-ph="s1_vat_ph" placeholder="NL123456789B01">
           </div>
         </div>
@@ -506,8 +520,8 @@
       s4_kvkLabel: 'KvK-nummer:',
       s4_vatLabel: 'BTW-nummer:',
       s4_summary: 'Samenvatting',
-      s4_terms: 'Ik ga akkoord met de <a href="#">algemene dealervoorwaarden</a> van Brosi Interiors *',
-      s4_privacy: 'Ik ga akkoord met het <a href="#">privacybeleid</a> *',
+      s4_terms: 'Ik ga akkoord met de <a href="/voorwaarden" target="_blank" rel="noopener">algemene dealervoorwaarden</a> van Brosi Interiors *',
+      s4_privacy: 'Ik ga akkoord met het <a href="/privacy" target="_blank" rel="noopener">privacybeleid</a> *',
       s5_title: 'Aanvraag ontvangen!',
       s5_expectTitle: 'Wat kunt u verwachten?',
       s5_expect1: 'Bevestigingsmail binnen enkele minuten',
@@ -529,6 +543,9 @@
       vatFormatInvalid: '✗ Controleer het formaat',
       vatPending: '⏳ Wordt nagekeken',
       vatNotProvided: '— Niet opgegeven',
+      hint_kvk: 'Uw handelsnummer bij de Kamer van Koophandel. Afhankelijk van uw land verschilt het formaat (bijv. 8 cijfers voor NL).',
+      hint_vat: 'Optioneel. Uw BTW-identificatienummer (bijv. NL123456789B01). EU-nummers worden automatisch geverifieerd.',
+      sum_edit: 'Wijzigen',
       sum_company: 'Bedrijf',
       sum_contact: 'Contact',
       sum_type: 'Type',
@@ -584,8 +601,8 @@
       s4_kvkLabel: 'Chamber of Commerce No.:',
       s4_vatLabel: 'VAT Number:',
       s4_summary: 'Summary',
-      s4_terms: 'I agree to the <a href="#">general dealer terms</a> of Brosi Interiors *',
-      s4_privacy: 'I agree to the <a href="#">privacy policy</a> *',
+      s4_terms: 'I agree to the <a href="/terms" target="_blank" rel="noopener">general dealer terms</a> of Brosi Interiors *',
+      s4_privacy: 'I agree to the <a href="/privacy" target="_blank" rel="noopener">privacy policy</a> *',
       s5_title: 'Application Received!',
       s5_expectTitle: 'What to expect?',
       s5_expect1: 'Confirmation email within minutes',
@@ -607,6 +624,9 @@
       vatFormatInvalid: '✗ Check the format',
       vatPending: '⏳ Under review',
       vatNotProvided: '— Not provided',
+      hint_kvk: 'Your registration number from the Chamber of Commerce. The format varies by country (e.g. 8 digits for NL).',
+      hint_vat: 'Optional. Your VAT identification number (e.g. GB123456789). EU numbers are automatically verified.',
+      sum_edit: 'Edit',
       sum_company: 'Company',
       sum_contact: 'Contact',
       sum_type: 'Type',
@@ -662,8 +682,8 @@
       s4_kvkLabel: 'Handelsregisternr.:',
       s4_vatLabel: 'USt-IdNr.:',
       s4_summary: 'Zusammenfassung',
-      s4_terms: 'Ich stimme den <a href="#">allgemeinen Händlerbedingungen</a> von Brosi Interiors zu *',
-      s4_privacy: 'Ich stimme der <a href="#">Datenschutzrichtlinie</a> zu *',
+      s4_terms: 'Ich stimme den <a href="/agb" target="_blank" rel="noopener">allgemeinen Händlerbedingungen</a> von Brosi Interiors zu *',
+      s4_privacy: 'Ich stimme der <a href="/datenschutz" target="_blank" rel="noopener">Datenschutzrichtlinie</a> zu *',
       s5_title: 'Anfrage erhalten!',
       s5_expectTitle: 'Was können Sie erwarten?',
       s5_expect1: 'Bestätigungsmail innerhalb weniger Minuten',
@@ -685,6 +705,9 @@
       vatFormatInvalid: '✗ Format prüfen',
       vatPending: '⏳ Wird geprüft',
       vatNotProvided: '— Nicht angegeben',
+      hint_kvk: 'Ihre Handelsregisternummer. Das Format variiert je nach Land (z. B. HRB 123456 für DE).',
+      hint_vat: 'Optional. Ihre USt-IdNr. (z. B. DE123456789). EU-Nummern werden automatisch geprüft.',
+      sum_edit: 'Bearbeiten',
       sum_company: 'Unternehmen',
       sum_contact: 'Kontakt',
       sum_type: 'Art',
@@ -1162,11 +1185,14 @@
     var shopLabel = selectedShopTypeIndex >= 0 ? t[currentLang].shopTypes[selectedShopTypeIndex] : '—';
     var countryName = getCountryName(country);
     var shopBadge = shopLabel !== '—' ? '<span class="summary-type-badge">' + shopLabel + '</span>' : '—';
+    var e = '<a onclick="goToStep(1)" class="summary-edit">' + tr.sum_edit + '</a>';
+    var e2 = '<a onclick="goToStep(2)" class="summary-edit">' + tr.sum_edit + '</a>';
+    var e3 = '<a onclick="goToStep(3)" class="summary-edit">' + tr.sum_edit + '</a>';
     document.getElementById('summaryGrid').innerHTML =
-      '<div><strong>' + tr.sum_company + ':</strong> ' + val('companyName') + '</div>' +
-      '<div><strong>' + tr.sum_contact + ':</strong> ' + val('contactName') + '</div>' +
-      '<div><strong>' + tr.sum_type + ':</strong> ' + shopBadge + '</div>' +
-      '<div><strong>' + tr.sum_location + ':</strong> ' + val('city') + ', ' + countryName + '</div>';
+      '<div><strong>' + tr.sum_company + ':</strong> ' + val('companyName') + e + '</div>' +
+      '<div><strong>' + tr.sum_contact + ':</strong> ' + val('contactName') + e2 + '</div>' +
+      '<div><strong>' + tr.sum_type + ':</strong> ' + shopBadge + e3 + '</div>' +
+      '<div><strong>' + tr.sum_location + ':</strong> ' + val('city') + ', ' + countryName + e + '</div>';
   }
 
   async function checkVIES(ms, vatFull) {
