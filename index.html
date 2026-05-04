@@ -347,6 +347,9 @@
   let currentStep = 1;
   let selectedShopTypeIndex = -1;
   let currentLang = 'nl';
+  let userChangedCountry = false;
+
+  const langDefaultCountry = { nl: 'NL', en: 'GB', de: 'DE' };
 
   // ── COUNTRY VALIDATION CONFIG (VAT regex + VIES member-state code) ──
   const countryConfig = {
@@ -711,6 +714,10 @@
     currentLang = lang;
     sessionStorage.setItem('brosi_lang', lang);
     document.documentElement.lang = lang;
+    if (!userChangedCountry) {
+      var sel = document.getElementById('country');
+      if (sel) sel.value = langDefaultCountry[lang] || 'NL';
+    }
     applyLang();
     renderProgress();
     renderShopPills();
@@ -1132,6 +1139,10 @@
     if (tag === 'TEXTAREA' || tag === 'BUTTON' || e.target.classList.contains('pill')) return;
     e.preventDefault();
     if (currentStep < 5) goNext();
+  });
+
+  document.getElementById('country').addEventListener('change', function() {
+    userChangedCountry = true;
   });
 
   // ── GO ──
