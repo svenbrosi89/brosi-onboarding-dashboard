@@ -962,6 +962,8 @@
     var btnBack = document.getElementById('btnBack');
     var btnNext = document.getElementById('btnNext');
 
+    if (currentStep !== 4 && btnNext) btnNext.disabled = false;
+
     if (currentStep === 5) {
       navBar.style.display = 'none';
     } else {
