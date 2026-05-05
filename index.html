@@ -404,6 +404,7 @@
   let userChangedCountry = false;
   let kvkVerifyStatus = 'pending';
   let vatVerifyStatus = 'pending';
+  let verifyRunId = 0;
 
   const langDefaultCountry = { nl: 'NL', en: 'GB', de: 'DE' };
 
@@ -1014,7 +1015,12 @@
   }
 
   function goToStep(n) {
+    verifyRunId++;
     currentStep = n;
+    var btn = document.getElementById('btnNext');
+    if (btn) btn.disabled = false;
+    var note = document.getElementById('verifyErrorNote');
+    if (note) note.style.display = 'none';
     var activePanel = document.querySelector('.step-panel.active .step-content');
     if (activePanel) { activePanel.style.animation = 'none'; activePanel.offsetHeight; activePanel.style.animation = 'slideInLeft 0.28s ease'; }
     updateView();
@@ -1039,6 +1045,11 @@
   }
 
   function goBack() {
+    verifyRunId++;
+    var btn = document.getElementById('btnNext');
+    if (btn) btn.disabled = false;
+    var note = document.getElementById('verifyErrorNote');
+    if (note) note.style.display = 'none';
     currentStep = Math.max(currentStep - 1, 1);
     var activePanel = document.querySelector('.step-panel.active .step-content');
     if (activePanel) {
@@ -1099,6 +1110,7 @@
 
   // ── STEP 4: Populate (async — Option A: format, Option B: VIES) ──
   async function populateStep4() {
+    var runId = ++verifyRunId;
     var tr = t[currentLang];
     var country = document.getElementById('country').value;
     var cfg = countryConfig[country] || {};
@@ -1124,6 +1136,7 @@
     kvkBadge.className = 'badge loading';
     kvkBadge.textContent = tr.checking;
     setTimeout(function() {
+      if (verifyRunId !== runId) return;
       var regOk = regCfg && regCfg.regex ? regCfg.regex.test(kvkVal) : kvkVal.length >= 6;
       kvkBadge.className = 'badge ' + (regOk ? 'valid' : 'invalid');
       kvkBadge.textContent = regOk ? tr.kvkValid : tr.kvkInvalid;
@@ -1143,6 +1156,7 @@
 
       if (!formatOk) {
         setTimeout(function() {
+          if (verifyRunId !== runId) return;
           vatBadge.className = 'badge invalid';
           vatBadge.textContent = tr.vatFormatInvalid;
           vatVerifyStatus = 'invalid';
@@ -1150,9 +1164,11 @@
         }, 900);
       } else if (cfg.isEU) {
         setTimeout(async function() {
+          if (verifyRunId !== runId) return;
           vatBadge.className = 'badge loading';
           vatBadge.textContent = tr.viesChecking;
           var result = await checkVIES(cfg.viesMs, vatVal);
+          if (verifyRunId !== runId) return;
           if (result.manual || result.apiError) {
             vatBadge.className = 'badge pending';
             vatBadge.textContent = tr.vatPending;
@@ -1170,6 +1186,7 @@
         }, 900);
       } else {
         setTimeout(function() {
+          if (verifyRunId !== runId) return;
           vatBadge.className = 'badge pending';
           vatBadge.textContent = tr.vatPending;
           vatVerifyStatus = 'manual';
