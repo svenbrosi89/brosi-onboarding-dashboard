@@ -267,7 +267,7 @@
                 <span class="field-hint" tabindex="0"><span class="field-hint-icon" aria-label="info">?</span><span class="field-hint-text" role="tooltip" data-i18n="hint_kvk">Uw handelsnummer bij de Kamer van Koophandel. Afhankelijk van uw land verschilt het formaat (bijv. 8 cijfers voor NL).</span></span>
               </div>
               <input id="kvkNumber" data-i18n-ph="s1_kvk_ph" placeholder="12345678" autocomplete="off" aria-required="true">
-              <span id="kvkHint" class="field-sub"></span>
+              <span id="kvkHint" class="field-sub" aria-live="polite"></span>
             </div>
 
             <div class="field field-block-gap" id="f-street">
@@ -953,6 +953,7 @@
       if (currentStep > n) {
         circle.setAttribute('role', 'button');
         circle.setAttribute('tabindex', '0');
+        circle.setAttribute('aria-label', t[currentLang].steps[n - 1]);
         circle.onclick = (function(id) { return function() { goToStep(id); }; })(n);
         circle.onkeydown = (function(id) { return function(e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); goToStep(id); } }; })(n);
       } else {
