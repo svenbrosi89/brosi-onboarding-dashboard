@@ -66,7 +66,7 @@
     .step-circle { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600; background: var(--sand); color: var(--text-light); transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease; }
     .step-circle.active { background: var(--brown-dark); color: var(--white); }
     .step-circle.current { box-shadow: 0 0 0 2px var(--gold), 0 4px 16px var(--shadow-lg); }
-    .step-label { font-size: 10px; color: var(--text-light); letter-spacing: 0.15em; text-transform: uppercase; transition: color 0.3s; }
+    .step-label { font-size: 10px; color: var(--text); letter-spacing: 0.15em; text-transform: uppercase; transition: color 0.3s; }
     .step-label.active { color: var(--text); }
     .step-label.current { font-weight: 600; }
     .step-line { width: 40px; height: 2px; margin: 0 8px; margin-bottom: 20px; background: var(--border); border-radius: 1px; transition: background 0.3s; }
@@ -76,7 +76,7 @@
     .card { background: var(--white); border-radius: 16px; padding: 36px; box-shadow: 0 4px 24px var(--shadow-md), 0 1px 4px var(--shadow-sm); border: 1px solid var(--border); border-top: 2px solid var(--gold); }
 
     /* Step content */
-    .step-content { animation: slideInRight 0.28s ease; }
+    .step-content { animation: slideInRight 0.28s cubic-bezier(0.16, 1, 0.3, 1); }
     @keyframes slideInRight { from { opacity: 0; transform: translateX(40px); } to { opacity: 1; transform: translateX(0); } }
     @keyframes slideInLeft { from { opacity: 0; transform: translateX(-40px); } to { opacity: 1; transform: translateX(0); } }
     @keyframes popIn { 0% { transform: scale(0.5); opacity: 0; } 100% { transform: scale(1); opacity: 1; } }
@@ -88,13 +88,13 @@
     .field { margin-bottom: 20px; }
     .field label { display: block; font-size: 10px; font-weight: 600; color: var(--text); margin-bottom: 6px; letter-spacing: 0.2em; text-transform: uppercase; }
     .field input, .field select, .field textarea { width: 100%; padding: 12px 16px; border: 1.5px solid var(--border); border-radius: 4px; font-size: 15px; font-family: 'Jost', sans-serif; background: var(--white); color: var(--text); outline: none; transition: border-color 0.2s, box-shadow 0.2s; }
-    .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--gold); box-shadow: 0 0 0 3px var(--gold-soft); }
+    .field input:focus, .field select:focus, .field textarea:focus { border-color: var(--brown-mid); box-shadow: 0 0 0 3px rgba(107,66,38,0.12); }
+    .field input:focus-visible, .field select:focus-visible, .field textarea:focus-visible { outline: 2px solid var(--brown-mid); outline-offset: 2px; }
     .field textarea { min-height: 70px; resize: vertical; }
     .field select { cursor: pointer; }
     @keyframes fadeInDown { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
     .field .error-msg { font-size: 12px; color: var(--error); margin-top: 4px; animation: fadeInDown 0.18s ease; }
     .field.has-error input, .field.has-error select, .field.has-error textarea { border: 2px solid var(--error); }
-    .field input:focus-visible, .field select:focus-visible, .field textarea:focus-visible { outline: none; }
 
     /* Step counter */
     .step-meta { font-size: 10px; letter-spacing: 0.25em; color: var(--brown-mid); text-transform: uppercase; margin-bottom: 6px; font-weight: 600; }
@@ -122,7 +122,7 @@
     .verify-box { background: var(--sand-light); border-radius: 4px; padding: 20px; margin-bottom: 24px; border: 1px solid var(--border); }
     .verify-box .title { font-size: 10px; font-weight: 600; color: var(--brown-mid); margin-bottom: 14px; letter-spacing: 0.2em; text-transform: uppercase; }
     .verify-row { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; }
-    .verify-row span { font-size: 14px; color: var(--text-light); }
+    .verify-row span { font-size: 14px; color: var(--text); }
     .verify-row strong { color: var(--text); }
     .badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 2px; font-size: 13px; font-weight: 600; }
     .badge.loading { background: var(--sand-light); color: var(--text-light); }
@@ -154,7 +154,7 @@
     .success p { color: var(--text-light); font-size: 15px; max-width: 400px; margin: 0 auto 32px; line-height: 1.6; }
     .expect-list { background: var(--sand-light); border-radius: 4px; padding: 24px; text-align: left; border: 1px solid var(--border); max-width: 380px; margin: 0 auto; }
     .expect-list .title { font-size: 10px; font-weight: 600; color: var(--brown-mid); margin-bottom: 16px; letter-spacing: 0.2em; text-transform: uppercase; }
-    .expect-item { display: flex; align-items: center; gap: 12px; padding: 8px 0; font-size: 14px; color: var(--text-light); opacity: 0; transform: translateY(8px); transition: opacity 0.3s ease, transform 0.3s ease; }
+    .expect-item { display: flex; align-items: center; gap: 12px; padding: 8px 0; font-size: 14px; color: var(--text-light); opacity: 0; transform: translateY(8px); transition: opacity 0.4s cubic-bezier(0.16, 1, 0.3, 1), transform 0.4s cubic-bezier(0.16, 1, 0.3, 1); }
     .expect-item.show { opacity: 1; transform: translateY(0); }
     .expect-item + .expect-item { border-top: 1px solid var(--border-light); }
     .expect-item .icon { display: flex; align-items: center; color: var(--brown); flex-shrink: 0; }
@@ -1026,7 +1026,7 @@
     if (activePanel) {
       activePanel.style.animation = 'none';
       activePanel.offsetHeight;
-      activePanel.style.animation = 'slideInRight 0.28s ease';
+      activePanel.style.animation = 'slideInRight 0.28s cubic-bezier(0.16, 1, 0.3, 1)';
     }
 
     // Scroll card into view on step transitions (not on initial load)
@@ -1056,7 +1056,7 @@
     var note = document.getElementById('verifyErrorNote');
     if (note) note.style.display = 'none';
     var activePanel = document.querySelector('.step-panel.active .step-content');
-    if (activePanel) { activePanel.style.animation = 'none'; activePanel.offsetHeight; activePanel.style.animation = 'slideInLeft 0.28s ease'; }
+    if (activePanel) { activePanel.style.animation = 'none'; activePanel.offsetHeight; activePanel.style.animation = 'slideInLeft 0.28s cubic-bezier(0.16, 1, 0.3, 1)'; }
     updateView();
   }
 
@@ -1087,7 +1087,7 @@
     if (activePanel) {
       activePanel.style.animation = 'none';
       activePanel.offsetHeight;
-      activePanel.style.animation = 'slideInLeft 0.28s ease';
+      activePanel.style.animation = 'slideInLeft 0.28s cubic-bezier(0.16, 1, 0.3, 1)';
     }
     updateView();
   }
