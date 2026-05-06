@@ -46,9 +46,9 @@
     .wrapper { width: 100%; max-width: 600px; }
 
     /* Language bar */
-    .lang-bar { display: flex; justify-content: center; gap: 8px; margin-bottom: 32px; }
-    .lang-btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 16px 20px; flex: 1; border-radius: 6px; border: 1.5px solid var(--border); background: transparent; color: var(--text-light); font-size: 13px; font-family: 'Jost', sans-serif; font-weight: 400; letter-spacing: 0.05em; cursor: pointer; transition: border-color 0.2s, background-color 0.2s, color 0.2s; white-space: nowrap; }
-    .lang-btn .flag { width: 26px; height: auto; border-radius: 2px; flex-shrink: 0; }
+    .lang-bar { display: flex; justify-content: flex-end; gap: 6px; margin-bottom: 20px; }
+    .lang-btn { display: inline-flex; align-items: center; justify-content: center; gap: 6px; padding: 6px 12px; flex: none; border-radius: 4px; border: 1.5px solid var(--border); background: transparent; color: var(--text-light); font-size: 11px; font-family: 'Jost', sans-serif; font-weight: 400; letter-spacing: 0.05em; cursor: pointer; transition: border-color 0.2s, background-color 0.2s, color 0.2s; white-space: nowrap; }
+    .lang-btn .flag { width: 18px; height: auto; border-radius: 2px; flex-shrink: 0; }
     .lang-btn.active { border-color: var(--gold); background: var(--gold-soft); color: var(--brown-dark); font-weight: 600; }
     .lang-btn:hover:not(.active) { border-color: var(--brown); color: var(--text); background: var(--sand-light); }
 
@@ -66,6 +66,11 @@
     .step-circle { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600; background: var(--sand); color: var(--text-light); transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease; }
     .step-circle.active { background: var(--brown-dark); color: var(--white); }
     .step-circle.current { box-shadow: 0 0 0 2px var(--gold), 0 4px 16px var(--shadow-lg); }
+    .step-circle[role="button"] { cursor: pointer; }
+    .step-circle[role="button"]:hover { opacity: 0.75; }
+    .field-sub { font-size: 11px; color: var(--text-light); margin-top: 3px; display: block; letter-spacing: 0; font-weight: 400; text-transform: none; }
+    .verify-sub { font-size: 12px; color: var(--text-light); margin-bottom: 12px; line-height: 1.5; }
+    .success-ref { font-size: 12px; color: var(--text-light); letter-spacing: 0.05em; margin: -20px auto 28px; }
     .step-label { font-size: 10px; color: var(--text); letter-spacing: 0.15em; text-transform: uppercase; transition: color 0.3s; }
     .step-label.active { color: var(--text); }
     .step-label.current { font-weight: 600; }
@@ -181,10 +186,10 @@
       /* Card */
       .card { padding: 24px 18px; border-radius: 12px; }
 
-      /* Taalknop — 3 naast elkaar, iets compacter */
-      .lang-bar { gap: 6px; }
-      .lang-btn { padding: 11px 10px; font-size: 11px; }
-      .lang-btn .flag { width: 20px; }
+      /* Taalknop — compact op mobiel */
+      .lang-bar { gap: 4px; }
+      .lang-btn { padding: 5px 8px; font-size: 10px; }
+      .lang-btn .flag { width: 14px; }
 
       /* Formuliervelden — volledig breed */
       .row2, .row-postal { grid-template-columns: 1fr; }
@@ -262,6 +267,7 @@
                 <span class="field-hint" tabindex="0"><span class="field-hint-icon" aria-label="info">?</span><span class="field-hint-text" role="tooltip" data-i18n="hint_kvk">Uw handelsnummer bij de Kamer van Koophandel. Afhankelijk van uw land verschilt het formaat (bijv. 8 cijfers voor NL).</span></span>
               </div>
               <input id="kvkNumber" data-i18n-ph="s1_kvk_ph" placeholder="12345678" autocomplete="off" aria-required="true">
+              <span id="kvkHint" class="field-sub"></span>
             </div>
 
             <div class="field field-block-gap" id="f-street">
@@ -345,6 +351,7 @@
 
             <div class="verify-box">
               <div class="title" data-i18n="s4_autoVerify">Automatische verificatie</div>
+              <p class="verify-sub" data-i18n="s4_verifyDesc">We controleren uw registratie- en BTW-nummer om uw aanvraag snel te verwerken.</p>
               <div class="verify-row">
                 <span><span data-i18n="s4_kvkLabel">KvK-nummer:</span> <strong id="showKvk">—</strong></span>
                 <span class="badge loading" id="kvkBadge" aria-live="polite">...</span>
@@ -383,6 +390,7 @@
             <div class="success-icon" id="successIcon" aria-hidden="true">✓</div>
             <h2 data-i18n="s5_title">Aanvraag ontvangen!</h2>
             <p id="successMsg"></p>
+            <p id="successRef" class="success-ref"></p>
             <div class="expect-list">
               <div class="title" data-i18n="s5_expectTitle">Wat kunt u verwachten?</div>
               <div class="expect-item" data-delay="300">
@@ -539,6 +547,7 @@
       s4_title: 'Verificatie & Voorwaarden',
       s4_desc: 'Laatste stap voor inzending',
       s4_autoVerify: 'Automatische verificatie',
+      s4_verifyDesc: 'We controleren uw registratie- en BTW-nummer om uw aanvraag snel te verwerken.',
       s4_kvkLabel: 'KvK-nummer:',
       s4_vatLabel: 'BTW-nummer:',
       s4_summary: 'Samenvatting',
@@ -551,9 +560,10 @@
       s5_expect3: 'Persoonlijk contact binnen 2 werkdagen',
       s5_expect4: 'Uw dealeraccount & inloggegevens',
       s5_msg: function(name, company) { return 'Bedankt, ' + name + '. Uw dealeraanvraag voor <strong>' + company + '</strong> is succesvol ingediend. Ons team beoordeelt uw aanvraag binnen 2 werkdagen.'; },
+      s5_ref: function(ref) { return 'Referentienummer: <strong>' + ref + '</strong>'; },
       back: '← Vorige',
       next: 'Volgende →',
-      submit: 'Aanvraag indienen ✓',
+      submit: 'Aanvraag indienen',
       required: 'Verplicht',
       invalidEmail: 'Ongeldig e-mailadres',
       selectType: 'Selecteer een type',
@@ -620,6 +630,7 @@
       s4_title: 'Verification & Terms',
       s4_desc: 'Final step before submission',
       s4_autoVerify: 'Automatic Verification',
+      s4_verifyDesc: 'We verify your registration and VAT number to process your application quickly.',
       s4_kvkLabel: 'Chamber of Commerce No.:',
       s4_vatLabel: 'VAT Number:',
       s4_summary: 'Summary',
@@ -632,9 +643,10 @@
       s5_expect3: 'Personal contact within 2 business days',
       s5_expect4: 'Your dealer account & login details',
       s5_msg: function(name, company) { return 'Thank you, ' + name + '. Your dealer application for <strong>' + company + '</strong> has been successfully submitted. Our team will review your application within 2 business days.'; },
+      s5_ref: function(ref) { return 'Reference number: <strong>' + ref + '</strong>'; },
       back: '← Back',
       next: 'Next →',
-      submit: 'Submit Application ✓',
+      submit: 'Submit Application',
       required: 'Required',
       invalidEmail: 'Invalid email address',
       selectType: 'Select a type',
@@ -701,6 +713,7 @@
       s4_title: 'Verifizierung & Bedingungen',
       s4_desc: 'Letzter Schritt vor der Einreichung',
       s4_autoVerify: 'Automatische Verifizierung',
+      s4_verifyDesc: 'Wir prüfen Ihre Registrierungs- und USt-IdNr., um Ihre Anfrage schnell zu bearbeiten.',
       s4_kvkLabel: 'Handelsregisternr.:',
       s4_vatLabel: 'USt-IdNr.:',
       s4_summary: 'Zusammenfassung',
@@ -713,9 +726,10 @@
       s5_expect3: 'Persönlicher Kontakt innerhalb von 2 Werktagen',
       s5_expect4: 'Ihr Händlerkonto & Zugangsdaten',
       s5_msg: function(name, company) { return 'Vielen Dank, ' + name + '. Ihre Händleranfrage für <strong>' + company + '</strong> wurde erfolgreich eingereicht. Unser Team prüft Ihre Anfrage innerhalb von 2 Werktagen.'; },
+      s5_ref: function(ref) { return 'Referenznummer: <strong>' + ref + '</strong>'; },
       back: '← Zurück',
       next: 'Weiter →',
-      submit: 'Anfrage einreichen ✓',
+      submit: 'Anfrage einreichen',
       required: 'Pflichtfeld',
       invalidEmail: 'Ungültige E-Mail-Adresse',
       selectType: 'Bitte auswählen',
@@ -825,6 +839,7 @@
     renderShopPills();
     renderCountrySelect();
     countryChanged();
+    updateCircles();
     document.querySelectorAll('.lang-btn').forEach(function(b) {
       b.classList.toggle('active', b.dataset.lang === lang);
       b.setAttribute('aria-pressed', b.dataset.lang === lang ? 'true' : 'false');
@@ -904,6 +919,51 @@
     return c ? c[currentLang] : code;
   }
 
+  // ── SESSION PERSISTENCE ──
+  function saveFormState() {
+    var ids = ['companyName','kvkNumber','street','postalCode','city','vatNumber',
+               'contactName','contactEmail','contactPhone','contactRole','websiteUrl'];
+    var state = { shopTypeIndex: selectedShopTypeIndex };
+    ids.forEach(function(id) { var el = document.getElementById(id); if (el) state[id] = el.value; });
+    var sel = document.getElementById('country');
+    if (sel) state.country = sel.value;
+    sessionStorage.setItem('brosi_form', JSON.stringify(state));
+  }
+
+  function restoreFormState() {
+    var raw = sessionStorage.getItem('brosi_form');
+    if (!raw) return;
+    try {
+      var state = JSON.parse(raw);
+      var ids = ['companyName','kvkNumber','street','postalCode','city','vatNumber',
+                 'contactName','contactEmail','contactPhone','contactRole','websiteUrl'];
+      ids.forEach(function(id) { var el = document.getElementById(id); if (el && state[id]) el.value = state[id]; });
+      if (state.country) { var sel = document.getElementById('country'); if (sel) { sel.value = state.country; userChangedCountry = true; } }
+      if (typeof state.shopTypeIndex === 'number' && state.shopTypeIndex >= 0) selectedShopTypeIndex = state.shopTypeIndex;
+    } catch(e) {}
+  }
+
+  function clearFormState() { sessionStorage.removeItem('brosi_form'); }
+
+  // ── CLICKABLE CIRCLES ──
+  function updateCircles() {
+    for (var n = 1; n <= 5; n++) {
+      var circle = document.getElementById('sc' + n);
+      if (!circle) continue;
+      if (currentStep > n) {
+        circle.setAttribute('role', 'button');
+        circle.setAttribute('tabindex', '0');
+        circle.onclick = (function(id) { return function() { goToStep(id); }; })(n);
+        circle.onkeydown = (function(id) { return function(e) { if (e.key === 'Enter' || e.key === ' ') { e.preventDefault(); goToStep(id); } }; })(n);
+      } else {
+        circle.removeAttribute('role');
+        circle.removeAttribute('tabindex');
+        circle.onclick = null;
+        circle.onkeydown = null;
+      }
+    }
+  }
+
   // ── INIT ──
   function init() {
     currentLang = detectLang();
@@ -916,6 +976,7 @@
     renderProgress();
     renderShopPills();
     renderCountrySelect();
+    restoreFormState();
     countryChanged();
     updateView();
   }
@@ -939,6 +1000,8 @@
     if (vatInput) {
       vatInput.placeholder = vatPlaceholders[country] || (currentLang === 'de' ? 'USt-IdNr.' : currentLang === 'en' ? 'VAT Number' : 'BTW-nummer');
     }
+    var kvkHint = document.getElementById('kvkHint');
+    if (kvkHint) kvkHint.textContent = cfg ? cfg.ph : '';
   }
 
   function renderProgress() {
@@ -993,6 +1056,8 @@
       if (line) line.className = 'step-line' + (currentStep > s.id ? ' done' : '');
     });
 
+    updateCircles();
+
     var navBar = document.getElementById('navBar');
     var btnBack = document.getElementById('btnBack');
     var btnNext = document.getElementById('btnNext');
@@ -1044,6 +1109,7 @@
 
   function goNext() {
     if (!validateStep()) return;
+    saveFormState();
     currentStep = Math.min(currentStep + 1, 5);
     updateView();
   }
@@ -1258,9 +1324,13 @@
 
   // ── STEP 5: Animate ──
   function animateStep5() {
+    clearFormState();
     var name = val('contactName').split(' ')[0] || '';
     var company = val('companyName');
     document.getElementById('successMsg').innerHTML = t[currentLang].s5_msg(name, company);
+    var ref = 'BRO-' + Date.now().toString(36).toUpperCase().slice(-6);
+    var refEl = document.getElementById('successRef');
+    if (refEl) refEl.innerHTML = t[currentLang].s5_ref(ref);
 
     setTimeout(function() {
       document.getElementById('successIcon').classList.add('animate');
