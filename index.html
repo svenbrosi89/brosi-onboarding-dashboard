@@ -24,10 +24,20 @@
       --gold-hero: #d4a87a;
       --gold-soft: rgba(201,169,110,0.15);
       --gold-glow: rgba(201,169,110,0.3);
+      --gold-divider: rgba(201,169,110,0.2);
+      --gold-subtle: rgba(201,169,110,0.1);
+      --gold-subtle-border: rgba(201,169,110,0.35);
       --hero-bg: #1a0f08;
       --shadow-sm: rgba(61,43,31,0.04);
       --shadow-md: rgba(61,43,31,0.08);
       --shadow-lg: rgba(61,43,31,0.25);
+      --error: #c0392b;
+      --success-bg: #e8f5e9;
+      --success-text: #2e7d32;
+      --pending-bg: #fff8e1;
+      --pending-text: #f57f17;
+      --invalid-bg: #fce4ec;
+      --invalid-text: #c62828;
     }
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
@@ -37,7 +47,7 @@
 
     /* Language bar */
     .lang-bar { display: flex; justify-content: center; gap: 8px; margin-bottom: 32px; }
-    .lang-btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 16px 20px; flex: 1; border-radius: 6px; border: 1.5px solid var(--border); background: transparent; color: var(--text-light); font-size: 13px; font-family: 'Jost', sans-serif; font-weight: 400; letter-spacing: 0.05em; cursor: pointer; transition: all 0.2s; white-space: nowrap; }
+    .lang-btn { display: inline-flex; align-items: center; justify-content: center; gap: 10px; padding: 16px 20px; flex: 1; border-radius: 6px; border: 1.5px solid var(--border); background: transparent; color: var(--text-light); font-size: 13px; font-family: 'Jost', sans-serif; font-weight: 400; letter-spacing: 0.05em; cursor: pointer; transition: border-color 0.2s, background-color 0.2s, color 0.2s; white-space: nowrap; }
     .lang-btn .flag { width: 26px; height: auto; border-radius: 2px; flex-shrink: 0; }
     .lang-btn.active { border-color: var(--gold); background: var(--gold-soft); color: var(--brown-dark); font-weight: 600; }
     .lang-btn:hover:not(.active) { border-color: var(--brown); color: var(--text); background: var(--sand-light); }
@@ -47,16 +57,16 @@
     .logo-img { height: 96px; width: auto; display: block; margin: 0 auto 16px; mix-blend-mode: multiply; }
     .header-statement { font-family: 'Cormorant Garamond', serif; font-style: italic; font-weight: 300; font-size: 19px; color: var(--brown-mid); letter-spacing: 0.01em; margin: 0 0 16px; line-height: 1.4; }
     .header-divider { width: 24px; height: 1px; background: var(--gold); margin: 0 auto 14px; opacity: 0.8; }
-    .subtitle { font-size: 10px; color: var(--gold); letter-spacing: 0.35em; text-transform: uppercase; font-weight: 500; }
+    .subtitle { font-size: 10px; color: var(--brown-mid); letter-spacing: 0.35em; text-transform: uppercase; font-weight: 500; }
 
     /* Progress */
     .progress { display: flex; justify-content: center; align-items: center; margin-bottom: 32px; }
     .step-item { display: flex; align-items: center; }
     .step-col { display: flex; flex-direction: column; align-items: center; gap: 6px; }
-    .step-circle { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600; background: var(--sand); color: var(--text-light); transition: all 0.3s ease; }
+    .step-circle { width: 36px; height: 36px; border-radius: 50%; display: flex; align-items: center; justify-content: center; font-size: 14px; font-weight: 600; background: var(--sand); color: var(--text-light); transition: background-color 0.3s ease, color 0.3s ease, box-shadow 0.3s ease; }
     .step-circle.active { background: var(--brown-dark); color: var(--white); }
     .step-circle.current { box-shadow: 0 0 0 2px var(--gold), 0 4px 16px var(--shadow-lg); }
-    .step-label { font-size: 10px; color: var(--text-light); letter-spacing: 0.15em; text-transform: uppercase; transition: all 0.3s; }
+    .step-label { font-size: 10px; color: var(--text-light); letter-spacing: 0.15em; text-transform: uppercase; transition: color 0.3s; }
     .step-label.active { color: var(--text); }
     .step-label.current { font-weight: 600; }
     .step-line { width: 40px; height: 2px; margin: 0 8px; margin-bottom: 20px; background: var(--border); border-radius: 1px; transition: background 0.3s; }
@@ -82,60 +92,60 @@
     .field textarea { min-height: 70px; resize: vertical; }
     .field select { cursor: pointer; }
     @keyframes fadeInDown { from { opacity: 0; transform: translateY(-4px); } to { opacity: 1; transform: translateY(0); } }
-    .field .error-msg { font-size: 12px; color: #c0392b; margin-top: 4px; animation: fadeInDown 0.18s ease; }
-    .field.has-error input, .field.has-error select, .field.has-error textarea { border: 2px solid #c0392b; }
+    .field .error-msg { font-size: 12px; color: var(--error); margin-top: 4px; animation: fadeInDown 0.18s ease; }
+    .field.has-error input, .field.has-error select, .field.has-error textarea { border: 2px solid var(--error); }
     .field input:focus-visible, .field select:focus-visible, .field textarea:focus-visible { outline: none; }
 
     /* Step counter */
-    .step-meta { font-size: 10px; letter-spacing: 0.25em; color: var(--gold); text-transform: uppercase; margin-bottom: 6px; font-weight: 600; }
+    .step-meta { font-size: 10px; letter-spacing: 0.25em; color: var(--brown-mid); text-transform: uppercase; margin-bottom: 6px; font-weight: 600; }
 
     .row2 { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
     .row-postal { display: grid; grid-template-columns: 1fr 2fr; gap: 16px; }
-    .field-block-gap { margin-top: 32px; border-top: 1px solid rgba(201,169,110,0.2); padding-top: 8px; }
+    .field-block-gap { margin-top: 32px; border-top: 1px solid var(--gold-divider); padding-top: 8px; }
 
     /* Pill buttons */
     .pills { display: flex; flex-wrap: wrap; gap: 8px; }
-    .pill { padding: 8px 18px; border-radius: 6px; border: 1.5px solid var(--border); background: var(--white); color: var(--text); font-size: 11px; font-family: 'Jost', sans-serif; cursor: pointer; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; transition: all 0.2s; }
+    .pill { padding: 10px 18px; border-radius: 6px; border: 1.5px solid var(--border); background: var(--white); color: var(--text); font-size: 11px; font-family: 'Jost', sans-serif; cursor: pointer; font-weight: 400; letter-spacing: 0.1em; text-transform: uppercase; transition: border-color 0.2s, background-color 0.2s, color 0.2s; }
     .pill.selected { border: 2px solid var(--gold); background: var(--brown); color: var(--white); font-weight: 600; }
     .pill:hover:not(.selected) { border-color: var(--gold); color: var(--text); }
     .summary-type-badge { display: inline-block; padding: 2px 10px; border: 1px solid var(--border); border-radius: 4px; font-size: 11px; font-weight: 600; letter-spacing: 0.1em; text-transform: uppercase; color: var(--brown); background: var(--gold-soft); }
     .label-row { display: flex; align-items: center; gap: 6px; margin-bottom: 6px; }
     .label-row label { display: inline; margin-bottom: 0; }
     .field-hint { position: relative; display: inline-flex; align-items: center; }
-    .field-hint-icon { display: inline-flex; align-items: center; justify-content: center; width: 15px; height: 15px; border-radius: 50%; border: 1px solid var(--gold); color: var(--gold); font-size: 9px; font-family: 'Jost', sans-serif; font-weight: 600; cursor: help; flex-shrink: 0; }
+    .field-hint-icon { display: inline-flex; align-items: center; justify-content: center; width: 15px; height: 15px; border-radius: 50%; border: 1px solid var(--brown-mid); color: var(--brown-mid); font-size: 9px; font-family: 'Jost', sans-serif; font-weight: 600; cursor: help; flex-shrink: 0; }
     .field-hint-text { position: absolute; left: 50%; bottom: calc(100% + 8px); transform: translateX(-50%); background: var(--brown-dark); color: var(--white); font-size: 12px; font-family: 'Jost', sans-serif; font-weight: 400; letter-spacing: 0; text-transform: none; line-height: 1.5; padding: 8px 12px; border-radius: 4px; width: 220px; white-space: normal; opacity: 0; pointer-events: none; transition: opacity 0.15s ease; z-index: 20; }
     .field-hint-text::after { content: ''; position: absolute; top: 100%; left: 50%; transform: translateX(-50%); border: 5px solid transparent; border-top-color: var(--brown-dark); }
     .field-hint:hover .field-hint-text, .field-hint:focus-within .field-hint-text { opacity: 1; }
-    .summary-edit { margin-left: 8px; font-size: 11px; color: var(--gold); text-decoration: underline; cursor: pointer; font-weight: 400; text-transform: none; letter-spacing: 0; }
+    .summary-edit { margin-left: 8px; font-size: 11px; color: var(--brown); text-decoration: underline; cursor: pointer; font-weight: 400; text-transform: none; letter-spacing: 0; }
 
     /* Verification box */
     .verify-box { background: var(--sand-light); border-radius: 4px; padding: 20px; margin-bottom: 24px; border: 1px solid var(--border); }
-    .verify-box .title { font-size: 10px; font-weight: 600; color: var(--gold); margin-bottom: 14px; letter-spacing: 0.2em; text-transform: uppercase; }
+    .verify-box .title { font-size: 10px; font-weight: 600; color: var(--brown-mid); margin-bottom: 14px; letter-spacing: 0.2em; text-transform: uppercase; }
     .verify-row { display: flex; justify-content: space-between; align-items: center; padding: 5px 0; }
     .verify-row span { font-size: 14px; color: var(--text-light); }
     .verify-row strong { color: var(--text); }
     .badge { display: inline-flex; align-items: center; gap: 6px; padding: 4px 12px; border-radius: 2px; font-size: 13px; font-weight: 600; }
     .badge.loading { background: var(--sand-light); color: var(--text-light); }
-    .badge.valid { background: #e8f5e9; color: #2e7d32; }
-    .badge.invalid { background: #fce4ec; color: #c62828; }
-    .badge.pending { background: #fff8e1; color: #f57f17; }
+    .badge.valid { background: var(--success-bg); color: var(--success-text); }
+    .badge.invalid { background: var(--invalid-bg); color: var(--invalid-text); }
+    .badge.pending { background: var(--pending-bg); color: var(--pending-text); }
 
     .summary-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 8px; font-size: 14px; color: var(--text-light); }
 
     /* Checkboxes */
     .checkbox-row { display: flex; align-items: flex-start; gap: 10px; cursor: pointer; font-size: 14px; color: var(--text); margin-bottom: 12px; }
     .checkbox-row input { margin-top: 2px; accent-color: var(--gold); width: 18px; height: 18px; flex-shrink: 0; }
-    .checkbox-row a { color: var(--gold); text-decoration: underline; }
+    .checkbox-row a { color: var(--brown); text-decoration: underline; }
 
     /* Navigation */
     .nav-bar { display: flex; justify-content: flex-end; margin-top: 32px; padding-top: 24px; border-top: 1px solid var(--border-light); }
     .nav-bar.has-back { justify-content: space-between; }
-    .btn-back { padding: 12px 28px; border-radius: 6px; border: 1.5px solid var(--border-medium); background: transparent; color: var(--text); font-size: 11px; font-family: 'Jost', sans-serif; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: all 0.2s; }
+    .btn-back { padding: 14px 28px; border-radius: 6px; border: 1.5px solid var(--border-medium); background: transparent; color: var(--text); font-size: 11px; font-family: 'Jost', sans-serif; font-weight: 600; letter-spacing: 2px; text-transform: uppercase; cursor: pointer; transition: background-color 0.2s; }
     .btn-back:hover { background: var(--sand-light); }
-    .btn-next { padding: 12px 32px; border-radius: 6px; border: none; background: var(--brown); color: var(--white); font-size: 11px; font-family: 'Jost', sans-serif; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; cursor: pointer; transition: all 0.2s; box-shadow: 0 4px 16px var(--gold-glow); }
+    .btn-next { padding: 14px 32px; border-radius: 6px; border: none; background: var(--brown); color: var(--white); font-size: 11px; font-family: 'Jost', sans-serif; font-weight: 600; letter-spacing: 3px; text-transform: uppercase; cursor: pointer; transition: box-shadow 0.2s, transform 0.2s; box-shadow: 0 4px 16px var(--gold-glow); }
     .btn-next:hover { box-shadow: 0 6px 24px var(--gold-glow); transform: translateY(-1px); }
     .btn-next:disabled { opacity: 0.4; cursor: not-allowed; transform: none; box-shadow: none; }
-    .verify-error-note { display: none; margin: -8px 0 16px; padding: 10px 14px; background: rgba(201,169,110,0.1); border: 1px solid rgba(201,169,110,0.35); border-radius: 4px; font-size: 12px; color: var(--brown-mid); line-height: 1.6; }
+    .verify-error-note { display: none; margin: -8px 0 16px; padding: 10px 14px; background: var(--gold-subtle); border: 1px solid var(--gold-subtle-border); border-radius: 4px; font-size: 12px; color: var(--brown-mid); line-height: 1.6; }
 
     /* Step 5 */
     .success-icon { width: 80px; height: 80px; border-radius: 50%; margin: 0 auto 24px; background: linear-gradient(135deg, var(--gold) 0%, var(--gold-hero) 100%); display: flex; align-items: center; justify-content: center; font-size: 36px; color: var(--white); box-shadow: 0 8px 32px var(--gold-glow); }
@@ -143,15 +153,15 @@
     .success h2 { font-family: 'Cormorant Garamond', serif; font-weight: 300; font-size: 28px; color: var(--text); margin: 0 0 8px; }
     .success p { color: var(--text-light); font-size: 15px; max-width: 400px; margin: 0 auto 32px; line-height: 1.6; }
     .expect-list { background: var(--sand-light); border-radius: 4px; padding: 24px; text-align: left; border: 1px solid var(--border); max-width: 380px; margin: 0 auto; }
-    .expect-list .title { font-size: 10px; font-weight: 600; color: var(--gold); margin-bottom: 16px; letter-spacing: 0.2em; text-transform: uppercase; }
-    .expect-item { display: flex; align-items: center; gap: 12px; padding: 8px 0; font-size: 14px; color: var(--text-light); opacity: 0; transform: translateY(8px); transition: all 0.3s ease; }
+    .expect-list .title { font-size: 10px; font-weight: 600; color: var(--brown-mid); margin-bottom: 16px; letter-spacing: 0.2em; text-transform: uppercase; }
+    .expect-item { display: flex; align-items: center; gap: 12px; padding: 8px 0; font-size: 14px; color: var(--text-light); opacity: 0; transform: translateY(8px); transition: opacity 0.3s ease, transform 0.3s ease; }
     .expect-item.show { opacity: 1; transform: translateY(0); }
     .expect-item + .expect-item { border-top: 1px solid var(--border-light); }
-    .expect-item .icon { font-size: 18px; }
+    .expect-item .icon { display: flex; align-items: center; color: var(--brown); flex-shrink: 0; }
 
     /* Footer */
     .footer { text-align: center; margin-top: 24px; font-size: 12px; color: var(--text-light); }
-    .footer a { color: var(--gold); text-decoration: none; }
+    .footer a { color: var(--brown-mid); text-decoration: none; }
 
 
     /* Hidden steps */
@@ -207,193 +217,208 @@
 
 <div class="wrapper">
   <!-- Language bar -->
-  <div class="lang-bar">
-    <button class="lang-btn" data-lang="nl" onclick="setLang('nl')"><img class="flag" src="https://flagcdn.com/nl.svg" alt="NL"> Nederlands</button>
-    <button class="lang-btn" data-lang="en" onclick="setLang('en')"><img class="flag" src="https://flagcdn.com/gb.svg" alt="GB"> English</button>
-    <button class="lang-btn" data-lang="de" onclick="setLang('de')"><img class="flag" src="https://flagcdn.com/de.svg" alt="DE"> Deutsch</button>
-  </div>
+  <nav class="lang-bar" aria-label="Taal / Language / Sprache">
+    <button class="lang-btn" data-lang="nl" aria-pressed="false" onclick="setLang('nl')"><img class="flag" src="https://flagcdn.com/nl.svg" alt="NL"> Nederlands</button>
+    <button class="lang-btn" data-lang="en" aria-pressed="false" onclick="setLang('en')"><img class="flag" src="https://flagcdn.com/gb.svg" alt="GB"> English</button>
+    <button class="lang-btn" data-lang="de" aria-pressed="false" onclick="setLang('de')"><img class="flag" src="https://flagcdn.com/de.svg" alt="DE"> Deutsch</button>
+  </nav>
 
   <!-- Header -->
-  <div class="header">
-    <img src="assets/brosi-logo.jpg" alt="Brosi Interiors" class="logo-img">
+  <header class="header">
+    <img src="assets/brosi-logo.jpg" alt="Brosi Interiors" class="logo-img" height="96">
     <p class="header-statement" data-i18n-html="brand_statement">De natuur als inspiratie<br>Onderscheidend door vakmanschap</p>
     <div class="header-divider"></div>
     <div class="subtitle" data-i18n="subtitle">Dealer Aanvraag</div>
-  </div>
+  </header>
 
-  <!-- Progress -->
-  <div class="progress" id="progress"></div>
+  <main>
+    <!-- Progress -->
+    <div class="progress" id="progress" role="list"></div>
 
-  <!-- Card -->
-  <div class="card">
-    <div id="stepMeta" class="step-meta"></div>
-    <div id="stepContainer">
+    <!-- Card -->
+    <div class="card">
+      <div id="stepMeta" class="step-meta"></div>
+      <div id="stepContainer">
 
-      <!-- Step 1: Bedrijf -->
-      <div class="step-panel active" id="panel1">
-        <div class="step-content">
-          <h2 data-i18n="s1_title">Bedrijfsgegevens</h2>
-          <p class="desc" data-i18n="s1_desc">Vertel ons over uw onderneming</p>
+        <!-- Step 1: Bedrijf -->
+        <div class="step-panel active" id="panel1">
+          <div class="step-content">
+            <h2 data-i18n="s1_title">Bedrijfsgegevens</h2>
+            <p class="desc" data-i18n="s1_desc">Vertel ons over uw onderneming</p>
 
-          <div class="field">
-            <label data-i18n="s1_country">Land</label>
-            <select id="country" onchange="countryChanged()" autocomplete="country"></select>
-          </div>
-
-          <div class="field" id="f-companyName">
-            <label data-i18n="s1_companyName">Bedrijfsnaam *</label>
-            <input id="companyName" data-i18n-ph="s1_companyName_ph" placeholder="Bijv. Interiors De Vries B.V." autocomplete="organization" aria-required="true">
-          </div>
-
-          <div class="field" id="f-kvkNumber">
-            <div class="label-row">
-              <label data-i18n="s1_kvk">KvK-nummer *</label>
-              <span class="field-hint" tabindex="0"><span class="field-hint-icon" aria-label="info">?</span><span class="field-hint-text" role="tooltip" data-i18n="hint_kvk">Uw handelsnummer bij de Kamer van Koophandel. Afhankelijk van uw land verschilt het formaat (bijv. 8 cijfers voor NL).</span></span>
-            </div>
-            <input id="kvkNumber" data-i18n-ph="s1_kvk_ph" placeholder="12345678" autocomplete="off" aria-required="true">
-          </div>
-
-          <div class="field field-block-gap" id="f-street">
-            <label data-i18n="s1_street">Straat + huisnummer *</label>
-            <input id="street" data-i18n-ph="s1_street_ph" placeholder="Hoofdstraat 12" autocomplete="street-address" aria-required="true">
-          </div>
-
-          <div class="row-postal">
-            <div class="field" id="f-postalCode">
-              <label data-i18n="s1_postal">Postcode *</label>
-              <input id="postalCode" data-i18n-ph="s1_postal_ph" placeholder="1234 AB" autocomplete="postal-code" aria-required="true">
-            </div>
-            <div class="field" id="f-city">
-              <label data-i18n="s1_city">Plaats *</label>
-              <input id="city" data-i18n-ph="s1_city_ph" placeholder="Amsterdam" autocomplete="address-level2" aria-required="true">
-            </div>
-          </div>
-
-          <div class="field">
-            <div class="label-row">
-              <label data-i18n="s1_vat">BTW-nummer</label>
-              <span class="field-hint" tabindex="0"><span class="field-hint-icon" aria-label="info">?</span><span class="field-hint-text" role="tooltip" data-i18n="hint_vat">Optioneel. Uw BTW-identificatienummer (bijv. NL123456789B01). EU-nummers worden automatisch geverifieerd.</span></span>
-            </div>
-            <input id="vatNumber" data-i18n-ph="s1_vat_ph" placeholder="NL123456789B01">
-          </div>
-        </div>
-      </div>
-
-      <!-- Step 2: Contact -->
-      <div class="step-panel" id="panel2">
-        <div class="step-content">
-          <h2 data-i18n="s2_title">Contactpersoon</h2>
-          <p class="desc" data-i18n="s2_desc">Wie is het eerste aanspreekpunt?</p>
-
-          <div class="field" id="f-contactName">
-            <label data-i18n="s2_name">Volledige naam *</label>
-            <input id="contactName" data-i18n-ph="s2_name_ph" placeholder="Jan de Vries" autocomplete="name" aria-required="true">
-          </div>
-
-          <div class="field" id="f-contactEmail">
-            <label data-i18n="s2_email">E-mailadres *</label>
-            <input id="contactEmail" type="email" data-i18n-ph="s2_email_ph" placeholder="jan@interiorsdevries.nl" autocomplete="email" aria-required="true">
-          </div>
-
-          <div class="row2">
-            <div class="field" id="f-contactPhone">
-              <label data-i18n="s2_phone">Telefoonnummer *</label>
-              <input id="contactPhone" data-i18n-ph="s2_phone_ph" placeholder="+31 6 12345678" autocomplete="tel" aria-required="true">
-            </div>
             <div class="field">
-              <label data-i18n="s2_role">Functie</label>
-              <input id="contactRole" data-i18n-ph="s2_role_ph" placeholder="Eigenaar / Inkoper" autocomplete="organization-title">
+              <label for="country" data-i18n="s1_country">Land</label>
+              <select id="country" onchange="countryChanged()" autocomplete="country"></select>
+            </div>
+
+            <div class="field" id="f-companyName">
+              <label for="companyName" data-i18n="s1_companyName">Bedrijfsnaam *</label>
+              <input id="companyName" data-i18n-ph="s1_companyName_ph" placeholder="Bijv. Interiors De Vries B.V." autocomplete="organization" aria-required="true">
+            </div>
+
+            <div class="field" id="f-kvkNumber">
+              <div class="label-row">
+                <label for="kvkNumber" data-i18n="s1_kvk">KvK-nummer *</label>
+                <span class="field-hint" tabindex="0"><span class="field-hint-icon" aria-label="info">?</span><span class="field-hint-text" role="tooltip" data-i18n="hint_kvk">Uw handelsnummer bij de Kamer van Koophandel. Afhankelijk van uw land verschilt het formaat (bijv. 8 cijfers voor NL).</span></span>
+              </div>
+              <input id="kvkNumber" data-i18n-ph="s1_kvk_ph" placeholder="12345678" autocomplete="off" aria-required="true">
+            </div>
+
+            <div class="field field-block-gap" id="f-street">
+              <label for="street" data-i18n="s1_street">Straat + huisnummer *</label>
+              <input id="street" data-i18n-ph="s1_street_ph" placeholder="Hoofdstraat 12" autocomplete="street-address" aria-required="true">
+            </div>
+
+            <div class="row-postal">
+              <div class="field" id="f-postalCode">
+                <label for="postalCode" data-i18n="s1_postal">Postcode *</label>
+                <input id="postalCode" data-i18n-ph="s1_postal_ph" placeholder="1234 AB" autocomplete="postal-code" aria-required="true">
+              </div>
+              <div class="field" id="f-city">
+                <label for="city" data-i18n="s1_city">Plaats *</label>
+                <input id="city" data-i18n-ph="s1_city_ph" placeholder="Amsterdam" autocomplete="address-level2" aria-required="true">
+              </div>
+            </div>
+
+            <div class="field">
+              <div class="label-row">
+                <label for="vatNumber" data-i18n="s1_vat">BTW-nummer</label>
+                <span class="field-hint" tabindex="0"><span class="field-hint-icon" aria-label="info">?</span><span class="field-hint-text" role="tooltip" data-i18n="hint_vat">Optioneel. Uw BTW-identificatienummer (bijv. NL123456789B01). EU-nummers worden automatisch geverifieerd.</span></span>
+              </div>
+              <input id="vatNumber" data-i18n-ph="s1_vat_ph" placeholder="NL123456789B01">
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 2: Contact -->
+        <div class="step-panel" id="panel2">
+          <div class="step-content">
+            <h2 data-i18n="s2_title">Contactpersoon</h2>
+            <p class="desc" data-i18n="s2_desc">Wie is het eerste aanspreekpunt?</p>
+
+            <div class="field" id="f-contactName">
+              <label for="contactName" data-i18n="s2_name">Volledige naam *</label>
+              <input id="contactName" data-i18n-ph="s2_name_ph" placeholder="Jan de Vries" autocomplete="name" aria-required="true">
+            </div>
+
+            <div class="field" id="f-contactEmail">
+              <label for="contactEmail" data-i18n="s2_email">E-mailadres *</label>
+              <input id="contactEmail" type="email" data-i18n-ph="s2_email_ph" placeholder="jan@interiorsdevries.nl" autocomplete="email" aria-required="true">
+            </div>
+
+            <div class="row2">
+              <div class="field" id="f-contactPhone">
+                <label for="contactPhone" data-i18n="s2_phone">Telefoonnummer *</label>
+                <input id="contactPhone" data-i18n-ph="s2_phone_ph" placeholder="+31 6 12345678" autocomplete="tel" aria-required="true">
+              </div>
+              <div class="field">
+                <label for="contactRole" data-i18n="s2_role">Functie</label>
+                <input id="contactRole" data-i18n-ph="s2_role_ph" placeholder="Eigenaar / Inkoper" autocomplete="organization-title">
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 3: Winkel -->
+        <div class="step-panel" id="panel3">
+          <div class="step-content">
+            <h2 data-i18n="s3_title">Winkelinformatie</h2>
+            <p class="desc" data-i18n="s3_desc">Help ons uw bedrijf beter te begrijpen</p>
+
+            <div class="field" id="f-shopType">
+              <label id="shopTypeLabel" data-i18n="s3_type">Type zaak *</label>
+              <div class="pills" id="shopTypePills" role="group" aria-labelledby="shopTypeLabel"></div>
+            </div>
+
+            <div class="field">
+              <label for="websiteUrl" data-i18n="s3_website">Website URL</label>
+              <input id="websiteUrl" data-i18n-ph="s3_website_ph" placeholder="https://www.uwwebsite.nl" autocomplete="url" type="url">
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 4: Verificatie -->
+        <div class="step-panel" id="panel4">
+          <div class="step-content">
+            <h2 data-i18n="s4_title">Verificatie &amp; Voorwaarden</h2>
+            <p class="desc" data-i18n="s4_desc">Laatste stap voor inzending</p>
+
+            <div class="verify-box">
+              <div class="title" data-i18n="s4_autoVerify">Automatische verificatie</div>
+              <div class="verify-row">
+                <span><span data-i18n="s4_kvkLabel">KvK-nummer:</span> <strong id="showKvk">—</strong></span>
+                <span class="badge loading" id="kvkBadge" aria-live="polite">...</span>
+              </div>
+              <div class="verify-row" style="margin-top:10px">
+                <span><span data-i18n="s4_vatLabel">BTW-nummer:</span> <strong id="showVat">—</strong></span>
+                <span class="badge loading" id="vatBadge" aria-live="polite">...</span>
+              </div>
+            </div>
+
+            <div id="verifyErrorNote" class="verify-error-note" role="status" aria-live="polite"></div>
+
+            <div class="verify-box">
+              <div class="title" data-i18n="s4_summary">Samenvatting</div>
+              <div class="summary-grid" id="summaryGrid"></div>
+            </div>
+
+            <div id="f-agreeTerms">
+              <label class="checkbox-row">
+                <input type="checkbox" id="agreeTerms">
+                <span data-i18n-html="s4_terms">Ik ga akkoord met de <a href="#">algemene dealervoorwaarden</a> van Brosi Interiors *</span>
+              </label>
+            </div>
+            <div id="f-agreePrivacy">
+              <label class="checkbox-row">
+                <input type="checkbox" id="agreePrivacy">
+                <span data-i18n-html="s4_privacy">Ik ga akkoord met het <a href="#">privacybeleid</a> *</span>
+              </label>
+            </div>
+          </div>
+        </div>
+
+        <!-- Step 5: Bevestiging -->
+        <div class="step-panel" id="panel5">
+          <div class="step-content success" style="text-align:center">
+            <div class="success-icon" id="successIcon" aria-hidden="true">✓</div>
+            <h2 data-i18n="s5_title">Aanvraag ontvangen!</h2>
+            <p id="successMsg"></p>
+            <div class="expect-list">
+              <div class="title" data-i18n="s5_expectTitle">Wat kunt u verwachten?</div>
+              <div class="expect-item" data-delay="300">
+                <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="2" y="4" width="20" height="16" rx="2"/><polyline points="2,4 12,13 22,4"/></svg></span>
+                <span data-i18n="s5_expect1">Bevestigingsmail binnen enkele minuten</span>
+              </div>
+              <div class="expect-item" data-delay="400">
+                <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><line x1="17" y1="17" x2="22" y2="22"/></svg></span>
+                <span data-i18n="s5_expect2">Beoordeling door ons salesteam</span>
+              </div>
+              <div class="expect-item" data-delay="500">
+                <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 13a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.6 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.18 6.18l1.27-1.27a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 16.92z"/></svg></span>
+                <span data-i18n="s5_expect3">Persoonlijk contact binnen 2 werkdagen</span>
+              </div>
+              <div class="expect-item" data-delay="600">
+                <span class="icon"><svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="7.5" cy="15.5" r="5.5"/><path d="M21 2 9 14M15 2l6 6-3 3-6-6"/></svg></span>
+                <span data-i18n="s5_expect4">Uw dealeraccount &amp; inloggegevens</span>
+              </div>
             </div>
           </div>
         </div>
       </div>
 
-      <!-- Step 3: Winkel -->
-      <div class="step-panel" id="panel3">
-        <div class="step-content">
-          <h2 data-i18n="s3_title">Winkelinformatie</h2>
-          <p class="desc" data-i18n="s3_desc">Help ons uw bedrijf beter te begrijpen</p>
-
-          <div class="field" id="f-shopType">
-            <label data-i18n="s3_type">Type zaak *</label>
-            <div class="pills" id="shopTypePills"></div>
-          </div>
-
-          <div class="field">
-            <label data-i18n="s3_website">Website URL</label>
-            <input id="websiteUrl" data-i18n-ph="s3_website_ph" placeholder="https://www.uwwebsite.nl" autocomplete="url" type="url">
-          </div>
-        </div>
-      </div>
-
-      <!-- Step 4: Verificatie -->
-      <div class="step-panel" id="panel4">
-        <div class="step-content">
-          <h2 data-i18n="s4_title">Verificatie &amp; Voorwaarden</h2>
-          <p class="desc" data-i18n="s4_desc">Laatste stap voor inzending</p>
-
-          <div class="verify-box">
-            <div class="title" data-i18n="s4_autoVerify">Automatische verificatie</div>
-            <div class="verify-row">
-              <span><span data-i18n="s4_kvkLabel">KvK-nummer:</span> <strong id="showKvk">—</strong></span>
-              <span class="badge loading" id="kvkBadge">...</span>
-            </div>
-            <div class="verify-row" style="margin-top:10px">
-              <span><span data-i18n="s4_vatLabel">BTW-nummer:</span> <strong id="showVat">—</strong></span>
-              <span class="badge loading" id="vatBadge">...</span>
-            </div>
-          </div>
-
-          <div id="verifyErrorNote" class="verify-error-note"></div>
-
-          <div class="verify-box">
-            <div class="title" data-i18n="s4_summary">Samenvatting</div>
-            <div class="summary-grid" id="summaryGrid"></div>
-          </div>
-
-          <div id="f-agreeTerms">
-            <label class="checkbox-row">
-              <input type="checkbox" id="agreeTerms">
-              <span data-i18n-html="s4_terms">Ik ga akkoord met de <a href="#">algemene dealervoorwaarden</a> van Brosi Interiors *</span>
-            </label>
-          </div>
-          <div id="f-agreePrivacy">
-            <label class="checkbox-row">
-              <input type="checkbox" id="agreePrivacy">
-              <span data-i18n-html="s4_privacy">Ik ga akkoord met het <a href="#">privacybeleid</a> *</span>
-            </label>
-          </div>
-        </div>
-      </div>
-
-      <!-- Step 5: Bevestiging -->
-      <div class="step-panel" id="panel5">
-        <div class="step-content success" style="text-align:center">
-          <div class="success-icon" id="successIcon">✓</div>
-          <h2 data-i18n="s5_title">Aanvraag ontvangen!</h2>
-          <p id="successMsg"></p>
-          <div class="expect-list">
-            <div class="title" data-i18n="s5_expectTitle">Wat kunt u verwachten?</div>
-            <div class="expect-item" data-delay="300"><span class="icon">📧</span> <span data-i18n="s5_expect1">Bevestigingsmail binnen enkele minuten</span></div>
-            <div class="expect-item" data-delay="400"><span class="icon">🔍</span> <span data-i18n="s5_expect2">Beoordeling door ons salesteam</span></div>
-            <div class="expect-item" data-delay="500"><span class="icon">📞</span> <span data-i18n="s5_expect3">Persoonlijk contact binnen 2 werkdagen</span></div>
-            <div class="expect-item" data-delay="600"><span class="icon">🔑</span> <span data-i18n="s5_expect4">Uw dealeraccount &amp; inloggegevens</span></div>
-          </div>
-        </div>
+      <!-- Navigation -->
+      <div class="nav-bar" id="navBar">
+        <button class="btn-back" id="btnBack" style="display:none" onclick="goBack()">← Vorige</button>
+        <button class="btn-next" id="btnNext" onclick="goNext()">Volgende →</button>
       </div>
     </div>
-
-    <!-- Navigation -->
-    <div class="nav-bar" id="navBar">
-      <button class="btn-back" id="btnBack" style="display:none" onclick="goBack()">← Vorige</button>
-      <button class="btn-next" id="btnNext" onclick="goNext()">Volgende →</button>
-    </div>
-  </div>
+  </main>
 
   <!-- Footer -->
-  <div class="footer" data-i18n-html="footer">Vragen? <a href="mailto:info@brosi-interiors.com">info@brosi-interiors.com</a> &nbsp;·&nbsp; <a href="tel:+31541229899">+31 (0)541 229 899</a></div>
+  <footer class="footer" data-i18n-html="footer">Vragen? <a href="mailto:info@brosi-interiors.com">info@brosi-interiors.com</a> &nbsp;·&nbsp; <a href="tel:+31541229899">+31 (0)541 229 899</a></footer>
 </div>
 
+<div id="formStatus" role="status" aria-live="polite" style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0"></div>
 
 <script>
   // ── STATE ──
@@ -802,6 +827,7 @@
     countryChanged();
     document.querySelectorAll('.lang-btn').forEach(function(b) {
       b.classList.toggle('active', b.dataset.lang === lang);
+      b.setAttribute('aria-pressed', b.dataset.lang === lang ? 'true' : 'false');
     });
   }
 
@@ -884,6 +910,7 @@
     document.documentElement.lang = currentLang;
     document.querySelectorAll('.lang-btn').forEach(function(b) {
       b.classList.toggle('active', b.dataset.lang === currentLang);
+      b.setAttribute('aria-pressed', b.dataset.lang === currentLang ? 'true' : 'false');
     });
     applyLang();
     renderProgress();
@@ -918,7 +945,7 @@
     var steps = t[currentLang].steps.map(function(label, i) { return { id: i + 1, label: label }; });
     var el = document.getElementById('progress');
     el.innerHTML = steps.map(function(s, i) {
-      var html = '<div class="step-item"><div class="step-col">';
+      var html = '<div class="step-item" role="listitem"><div class="step-col">';
       html += '<div class="step-circle" id="sc' + s.id + '">' + s.id + '</div>';
       html += '<span class="step-label" id="sl' + s.id + '">' + s.label + '</span>';
       html += '</div></div>';
@@ -957,6 +984,11 @@
       if (!circle) return;
       circle.className = 'step-circle' + (currentStep >= s.id ? ' active' : '') + (currentStep === s.id ? ' current' : '');
       circle.textContent = currentStep > s.id ? '✓' : s.id;
+      if (currentStep === s.id) {
+        circle.setAttribute('aria-current', 'step');
+      } else {
+        circle.removeAttribute('aria-current');
+      }
       label.className = 'step-label' + (currentStep >= s.id ? ' active' : '') + (currentStep === s.id ? ' current' : '');
       if (line) line.className = 'step-line' + (currentStep > s.id ? ' done' : '');
     });
@@ -1069,6 +1101,8 @@
       var existing = f.querySelector('.error-msg');
       if (!existing) { existing = document.createElement('div'); existing.className = 'error-msg'; f.appendChild(existing); }
       existing.textContent = msg;
+      var status = document.getElementById('formStatus');
+      if (status) status.textContent = msg;
     }
   }
   function clearError(fieldId) {
